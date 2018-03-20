@@ -51,15 +51,15 @@ public:
 
 class PlayerDirector {
 private:
-    PlayerBuilder* builder_;
+    std::shared_ptr<PlayerBuilder> builder_;
     
 public:
     PlayerDirector();
-    PlayerDirector(PlayerBuilder* builder);
+    PlayerDirector(std::shared_ptr<PlayerBuilder> builder);
     
-    ~PlayerDirector();
+    ~PlayerDirector() { }
     
-    void setBuilder(PlayerBuilder* builder);
+    void setBuilder(std::shared_ptr<PlayerBuilder> builder);
     std::shared_ptr<Player> buildPlayer();
 };
 

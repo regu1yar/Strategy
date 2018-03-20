@@ -8,34 +8,43 @@
 #include "Player/Player.hpp"
 
 
+const int Player::startWorkers_ = 5;
+const int Player::startTownHalls_ = 1;
+const int Player::xStartPositionShift_ = 20;
+const int Player::yStartPositionShift_ = 20;
+
 int Player::curXStartPosition_ = 0;
 int Player::curYStartPosition_ = 0;
 
-Player::Player(std::string nickname, Race race, std::shared_ptr<UnitFactory> factory,
-               int x, int y) :
-nickname_(nickname), race_(race), factory_(factory),
-xStartPosition_(x), yStartPosition_(y) {
+Player::Player(std::string nickname, Race race, std::shared_ptr<const UnitFactory> factory,
+               int x, int y) : nickname_(nickname), race_(race), factory_(factory),
+                               xStartPosition_(x), yStartPosition_(y) {
+    setStartResources();
+    updateStartPositions();
+}
+
+void Player::setStartResources() {
     std::shared_ptr<TownHall> townHall = factory_->getTownHall(xStartPosition_, yStartPosition_);
     units_[townHall->getUniqueId()] = townHall;
-    for (size_t i = 1; i < Utils::startTownHalls_; ++i) {
-        townHall = factory_->getTownHall(xStartPosition_ +
-                                         i * townHall->getSize().first, yStartPosition_);
+    for (size_t i = 1; i < startTownHalls_; ++i) {
+        townHall = factory_->getTownHall(xStartPosition_ + i * townHall->getSize().first, yStartPosition_);
         units_[townHall->getUniqueId()] = townHall;
     }
-    
-    std::shared_ptr<Worker> worker =
-    factory_->getWorker(xStartPosition_, yStartPosition_ + townHall->getSize().second);
+
+    std::shared_ptr<Worker> worker = factory_->getWorker(xStartPosition_, yStartPosition_ + townHall->getSize().second);
     units_[worker->getUniqueId()] = worker;
-    for (size_t i = 1; i < Utils::startWorkers_; ++i) {
-        std::shared_ptr<Worker> worker =
-        factory_->getWorker(xStartPosition_ + i * worker->getSize().first, yStartPosition_ + townHall->getSize().second);
+    for (size_t i = 1; i < startWorkers_; ++i) {
+        worker = factory_->getWorker(xStartPosition_ + i * worker->getSize().first,
+                                     yStartPosition_ + townHall->getSize().second);
         units_[worker->getUniqueId()] = worker;
     }
-    
-    if (x == curXStartPosition_)
-        curXStartPosition_ += Utils::xStartPositionShift_;
-    if (y == curYStartPosition_)
-        curYStartPosition_ += Utils::yStartPositionShift_;
+}
+
+void Player::updateStartPositions() {
+    if (xStartPosition_ == curXStartPosition_)
+        curXStartPosition_ += xStartPositionShift_;
+    if (yStartPosition_ == curYStartPosition_)
+        curYStartPosition_ += yStartPositionShift_;
 }
 
 std::string Player::getNickname() const { return nickname_; }

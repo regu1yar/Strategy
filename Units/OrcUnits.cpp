@@ -16,10 +16,9 @@ const size_t OrcTownHall::ySize = 2;
 const int OrcTownHall::startHealth = 1200;
 const int OrcTownHall::startArmor = 8;
 
-OrcTownHall::OrcTownHall(std::shared_ptr<OrcUnitFactory> factory, int x, int y,
-                         int health, int armor) :
-TownHall(id, name, xSize, ySize, x, y, health, armor,
-         std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+OrcTownHall::OrcTownHall(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
+                         int health, int armor) : TownHall(id, name, xSize, ySize, x, y, health, armor,
+                                                           std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t OrcBarracks::id = ORCS + BUILDING + BARRACKS;
@@ -29,10 +28,9 @@ const size_t OrcBarracks::ySize = 2;
 const int OrcBarracks::startHealth = 900;
 const int OrcBarracks::startArmor = 7;
 
-OrcBarracks::OrcBarracks(std::shared_ptr<OrcUnitFactory> factory, int x, int y,
-                         int health, int armor) :
-Barracks(id, name, xSize, ySize, x, y, health, armor,
-         std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+OrcBarracks::OrcBarracks(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
+                         int health, int armor) : Barracks(id, name, xSize, ySize, x, y, health, armor,
+                                                           std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t OrcWorker::id = ORCS + CREATURE + WORKER;
@@ -44,10 +42,10 @@ const int OrcWorker::startArmor = 0;
 const int OrcWorker::startDamage = 5;
 const double OrcWorker::startRange = 1.5;
 
-OrcWorker::OrcWorker(std::shared_ptr<OrcUnitFactory> factory, int x, int y,
+OrcWorker::OrcWorker(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
                      int health, int armor, int damage, double range) :
-Worker(id, name, xSize, ySize, x, y, health, armor, damage, range,
-       std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+        Worker(id, name, xSize, ySize, x, y, health, armor, damage, range,
+               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t OrcWarrior::id = ORCS + CREATURE + WARRIOR;
@@ -60,7 +58,7 @@ const int OrcWarrior::startDamage = 17;
 const double OrcWarrior::startRange = 1.5;
 
 OrcWarrior::OrcWarrior(int x, int y, int health, int armor, int damage, double range) :
-Warrior(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
+        Warrior(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
 
 
 const size_t OrcArcher::id = ORCS + CREATURE + ARCHER;
@@ -73,7 +71,7 @@ const int OrcArcher::startDamage = 22;
 const double OrcArcher::startRange = 7.1;
 
 OrcArcher::OrcArcher(int x, int y, int health, int armor, int damage, double range) :
-Archer(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
+        Archer(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
 
 
 const size_t OrcHealer::id = ORCS + CREATURE + HEALER;
@@ -89,4 +87,4 @@ const double OrcHealer::startHealRange = 4;
 
 OrcHealer::OrcHealer(int x, int y, int health, int armor,
                      int damage, double range, int heal, double healRange) :
-Healer(id, name, xSize, ySize, x, y, health, armor, damage, range, heal, healRange) { }
+        Healer(id, name, xSize, ySize, x, y, health, armor, damage, range, heal, healRange) { }

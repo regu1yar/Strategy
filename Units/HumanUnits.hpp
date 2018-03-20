@@ -24,7 +24,7 @@ public:
     static const int startArmor;
     
 public:
-    HumanTownHall(std::shared_ptr<HumanUnitFactory> factory,
+    HumanTownHall(std::shared_ptr<const HumanUnitFactory>,
                   int x = 0, int y = 0,
                   int health = startHealth, int armor = startArmor);
     
@@ -33,16 +33,15 @@ public:
 
 
 class HumanBarracks : public Barracks {
-private:
+public:
     static const size_t id;
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
     static const int startHealth;
     static const int startArmor;
-    
-public:
-    HumanBarracks(std::shared_ptr<HumanUnitFactory> factory,
+
+    HumanBarracks(std::shared_ptr<const HumanUnitFactory>,
                   int x = 0, int y = 0,
                   int health = startHealth, int armor = startArmor);
     
@@ -51,7 +50,7 @@ public:
 
 
 class HumanWorker : public Worker {
-private:
+public:
     static const size_t id;
     static const std::string name;
     static const size_t xSize;
@@ -60,9 +59,8 @@ private:
     static const int startArmor;
     static const int startDamage;
     static const double startRange;
-    
-public:
-    HumanWorker(std::shared_ptr<HumanUnitFactory> factory,
+
+    HumanWorker(std::shared_ptr<const HumanUnitFactory>,
                 int x = 0, int y = 0,
                 int health = startHealth, int armor = startArmor,
                 int damage = startDamage, double range = startRange);
@@ -72,7 +70,7 @@ public:
 
 
 class HumanWarrior : public Warrior {
-private:
+public:
     static const size_t id;
     static const std::string name;
     static const size_t xSize;
@@ -81,8 +79,7 @@ private:
     static const int startArmor;
     static const int startDamage;
     static const double startRange;
-    
-public:
+
     HumanWarrior(int x = 0, int y = 0,
                   int health = startHealth, int armor = startArmor,
                   int damage = startDamage, double range = startRange);
@@ -92,7 +89,7 @@ public:
 
 
 class HumanArcher : public Archer {
-private:
+public:
     static const size_t id;
     static const std::string name;
     static const size_t xSize;
@@ -101,8 +98,7 @@ private:
     static const int startArmor;
     static const int startDamage;
     static const double startRange;
-    
-public:
+
     HumanArcher(int x = 0, int y = 0,
                  int health = startHealth, int armor = startArmor,
                  int damage = startDamage, double range = startRange);
@@ -112,7 +108,7 @@ public:
 
 
 class HumanHealer : public Healer {
-private:
+public:
     static const size_t id;
     static const std::string name;
     static const size_t xSize;
@@ -123,12 +119,11 @@ private:
     static const double startRange;
     static const int startHeal;
     static const double startHealRange;
-    
-public:
+
     HumanHealer(int x = 0, int y = 0,
                 int health = startHealth, int armor = startArmor,
                 int damage = startDamage, double range = startRange,
-                int heal = startHeal, double healRange = startRange);
+                int heal = startHeal, double healRange = startHealRange);
     
     ~HumanHealer() { }
 };

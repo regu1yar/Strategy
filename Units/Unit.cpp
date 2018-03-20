@@ -10,11 +10,9 @@
 
 size_t Unit::counter_ = 0;
 
-Unit::Unit(size_t id, std::string name, size_t xSize, size_t ySize,
-           int x, int y, int health, int armor) : uniqueId_(counter_), id_(id), name_(name), xSize_(xSize),
-ySize_(ySize), x_(x), y_(y), maxHealth_(health), health_(health), armor_(armor) {
-    ++counter_;
-}
+Unit::Unit(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int health, int armor) :
+        uniqueId_(counter_), id_(id), name_(name), xSize_(xSize), ySize_(ySize), x_(x), y_(y),
+        maxHealth_(health), health_(health), armor_(armor) { ++counter_; }
 
 size_t Unit::getUniqueId() const { return uniqueId_; }
 

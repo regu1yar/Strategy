@@ -33,56 +33,66 @@ protected:
 
 TEST_F(PlayerTest, HumanNicknameTest) {
     std::string nickname = "Nickname";
-    PlayerBuilder* builder = new HumanPlayerBuilder(nickname);
+    std::shared_ptr<HumanPlayerBuilder> builder = std::make_shared<HumanPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(nickname, player->getNickname());
-    delete builder;
+    std::cout << "HUMAN NICKNAME TEST PASSED" << std::endl;
 }
 
 TEST_F(PlayerTest, OrcNicknameTest) {
     std::string nickname = "Nickname";
-    PlayerBuilder* builder = new OrcPlayerBuilder(nickname);
+    std::shared_ptr<OrcPlayerBuilder> builder = std::make_shared<OrcPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(nickname, player->getNickname());
-    delete builder;
+    std::cout << "ORC NICKNAME TEST PASSED" << std::endl;
 }
 
 TEST_F(PlayerTest, HumanRaceTest) {
     Race race = HUMANS;
     std::string nickname = "Nickname";
-    PlayerBuilder* builder = new HumanPlayerBuilder(nickname);
+    std::shared_ptr<HumanPlayerBuilder> builder = std::make_shared<HumanPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(race, player->getRace());
-    delete builder;
+    std::cout << "HUMAN RACE TEST PASSED" << std::endl;
 }
 
 TEST_F(PlayerTest, OrcRaceTest) {
     Race race = ORCS;
     std::string nickname = "Nickname";
-    PlayerBuilder* builder = new OrcPlayerBuilder(nickname);
+    std::shared_ptr<OrcPlayerBuilder> builder = std::make_shared<OrcPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(race, player->getRace());
-    delete builder;
+    std::cout << "ORC RACE TEST PASSED" << std::endl;
 }
 
 TEST_F(PlayerTest, DefaultPositionTest) {
     std::string nickname = "Nickname";
     int curX = Player::getCurStartPosition().first;
     int curY = Player::getCurStartPosition().second;
-    PlayerBuilder* builder = new HumanPlayerBuilder(nickname);
+    std::shared_ptr<HumanPlayerBuilder> builder = std::make_shared<HumanPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player;
     for (size_t i = 0; i < 100; ++i) {
         player = director.buildPlayer();
-        EXPECT_EQ(curX + i * Utils::xStartPositionShift_, player->getStartPosition().first);
-        EXPECT_EQ(curY + i * Utils::yStartPositionShift_, player->getStartPosition().second);
+        EXPECT_EQ(curX + i * Player::xStartPositionShift_, player->getStartPosition().first);
+        EXPECT_EQ(curY + i * Player::yStartPositionShift_, player->getStartPosition().second);
     }
-    delete builder;
+    std::cout << "DEFAULT POSITION TEST PASSED" << std::endl;
 }
+
+TEST_F(PlayerTest, StartUnitsTest) {
+    std::string nickname = "Nickname";
+    std::shared_ptr<OrcPlayerBuilder> builder = std::make_shared<OrcPlayerBuilder>(nickname);
+    director.setBuilder(builder);
+    std::shared_ptr<Player> player = director.buildPlayer();
+    EXPECT_EQ(Player::startWorkers_ + Player::startTownHalls_, player->getUnitsNumber());
+    std::cout << "START UNITS TEST PASSED" << std::endl;
+}
+
 
 
 #endif /* PlayerTest_hpp */

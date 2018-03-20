@@ -20,16 +20,24 @@ class Player {
 private:
     const std::string nickname_;
     const Race race_;
-    std::shared_ptr<UnitFactory> factory_;
+    std::shared_ptr<const UnitFactory> factory_;
     std::map<size_t, std::shared_ptr<Unit>> units_;
     const int xStartPosition_;
     const int yStartPosition_;
-    
+
     static int curXStartPosition_;
     static int curYStartPosition_;
+
+    void setStartResources();
+    void updateStartPositions();
     
 public:
-    Player(std::string nickname, Race race, std::shared_ptr<UnitFactory> factory,
+    static const int startWorkers_;
+    static const int startTownHalls_;
+    static const int xStartPositionShift_;
+    static const int yStartPositionShift_;
+
+    Player(std::string nickname, Race race, std::shared_ptr<const UnitFactory> factory,
            int x = curXStartPosition_, int y = curYStartPosition_);
     
     std::string getNickname() const;

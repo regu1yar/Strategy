@@ -15,7 +15,7 @@ set(PLAYER_SOURCE Player/Player.hpp Player/Player.cpp Player/PlayerDirector.hpp 
 
 set(UTILS_SOURCE Utils/Utils.hpp Utils/Utils.cpp)
 
-set(TESTS Test/PlayerTest.hpp)
+set(TESTS Test/PlayerTest.hpp Test/UnitsTest.hpp)
 
 add_executable(MyStrategy main.cpp ${UNITS_SOURCE} ${PLAYER_SOURCE} ${UTILS_SOURCE} ${TESTS})
 target_link_libraries(MyStrategy ${GTEST_LIBRARIES} pthread)

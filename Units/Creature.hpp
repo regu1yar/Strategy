@@ -11,6 +11,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "Units/Unit.hpp"
 
 
@@ -18,6 +19,16 @@ class Creature : public Unit {
 protected:
     int damage_;
     double range_;
+
+    static const double minDamageMultiplier_;
+    static const double maxDamageMultiplier_;
+    static const double armorMultiplier_;
+
+    void update();
+
+    static int calculateDamage(int damage, int armor);
+    static double calculateDistance(std::pair<int, int> first,
+                                    std::pair<int, int> second);
     
 public:
     Creature(size_t id, std::string name, size_t xSize, size_t ySize,
@@ -25,8 +36,6 @@ public:
     
     int getDamage() const;
     double getRange() const;
-    
-    void update();
     
     void attack(std::shared_ptr<Unit> target) const;
     // Currently without any borders
@@ -40,12 +49,12 @@ class TownHall;
 class Barracks;
 class Worker : public Creature {
 protected:
-    std::shared_ptr<UnitFactory> buildingFactory_;
+    std::shared_ptr<const UnitFactory> buildingFactory_;
     
 public:
     Worker(size_t id, std::string name, size_t xSize, size_t ySize,
            int x, int y, int health, int armor, int damage, double range,
-           std::shared_ptr<UnitFactory> buildingFactory);
+           std::shared_ptr<const UnitFactory> buildingFactory);
     
     // Currently without any borders
     std::shared_ptr<TownHall> buildTownHall() const;
@@ -73,11 +82,16 @@ class Healer : public Creature {
 protected:
     size_t heal_;
     double healRange_;
+
+    void update();
     
 public:
     Healer(size_t id, std::string name, size_t xSize, size_t ySize,
            int x, int y, int health, int armor, int damage,
            double range, size_t heal, double healRange);
+
+    size_t getHeal() const;
+    double getHealRange() const;
     
     void heal(std::shared_ptr<Unit> target);
 };

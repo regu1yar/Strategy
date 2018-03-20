@@ -11,13 +11,13 @@
 
 
 Building::Building(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y,
-                   int health, int armor, std::shared_ptr<UnitFactory> creatureFactory) :
-Unit(id, name, xSize, ySize, x, y, health, armor), creatureFactory_(creatureFactory) { }
+                   int health, int armor, std::shared_ptr<const UnitFactory> creatureFactory) :
+        Unit(id, name, xSize, ySize, x, y, health, armor), creatureFactory_(creatureFactory) { }
 
 
 TownHall::TownHall(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y,
-                   int health, int armor, std::shared_ptr<UnitFactory> creatureFactory) :
-Building(id, name, xSize, ySize, x, y, health, armor, creatureFactory) { }
+                   int health, int armor, std::shared_ptr<const UnitFactory> creatureFactory) :
+        Building(id, name, xSize, ySize, x, y, health, armor, creatureFactory) { }
 
 std::shared_ptr<Worker> TownHall::createWorker() const {
     std::shared_ptr<Worker> worker = creatureFactory_->getWorker(x_ + xSize_, y_ + ySize_);
@@ -27,8 +27,8 @@ std::shared_ptr<Worker> TownHall::createWorker() const {
 
 
 Barracks::Barracks(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y,
-                   int health, int armor, std::shared_ptr<UnitFactory> creatureFactory) :
-Building(id, name, xSize, ySize, x, y, health, armor, creatureFactory) { }
+                   int health, int armor, std::shared_ptr<const UnitFactory> creatureFactory) :
+        Building(id, name, xSize, ySize, x, y, health, armor, creatureFactory) { }
 
 std::shared_ptr<Warrior> Barracks::createWarrior() const {
     std::shared_ptr<Warrior> warrior = creatureFactory_->getWarrior(x_ + xSize_, y_ + ySize_);

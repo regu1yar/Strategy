@@ -9,6 +9,30 @@
 #define Unit_hpp
 
 #include <string>
+#include <algorithm>
+
+
+enum Race {
+    HUMANS = 0,
+    ORCS = 100
+};
+
+enum UnitType {
+    BUILDING = 0,
+    CREATURE = 10
+};
+
+enum BuildingType {
+    TOWN_HALL = 0,
+    BARRACKS
+};
+
+enum CreatureType {
+    WORKER = 0,
+    WARRIOR,
+    ARCHER,
+    HEALER
+};
 
 
 class Unit {
@@ -25,6 +49,8 @@ protected:
     int armor_;
     
     static size_t counter_;
+
+    void update();
     
 public:
     Unit(size_t id, std::string name, size_t xSize, size_t ySize,
@@ -42,8 +68,6 @@ public:
     
     void takeDamage(int damage); // Clear damage
     void takeHeal(int heal);
-    
-    void update();
 };
 
 

@@ -33,11 +33,9 @@ void OrcPlayerBuilder::buildFactory() { factory_ = std::make_shared<OrcUnitFacto
 
 PlayerDirector::PlayerDirector() : builder_(nullptr) { }
 
-PlayerDirector::PlayerDirector(PlayerBuilder* builder) : builder_(builder) { }
+PlayerDirector::PlayerDirector(std::shared_ptr<PlayerBuilder> builder) : builder_(builder) { }
 
-PlayerDirector::~PlayerDirector() { delete builder_; }
-
-void PlayerDirector::setBuilder(PlayerBuilder* builder) { builder_ = builder; }
+void PlayerDirector::setBuilder(std::shared_ptr<PlayerBuilder> builder) { builder_ = builder; }
 
 std::shared_ptr<Player> PlayerDirector::buildPlayer() {
     builder_->buildRace();

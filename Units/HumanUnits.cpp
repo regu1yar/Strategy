@@ -16,10 +16,9 @@ const size_t HumanTownHall::ySize = 2;
 const int HumanTownHall::startHealth = 1000;
 const int HumanTownHall::startArmor = 10;
 
-HumanTownHall::HumanTownHall(std::shared_ptr<HumanUnitFactory> factory, int x, int y,
-                             int health, int armor) :
-TownHall(id, name, xSize, ySize, x, y, health, armor,
-         std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+HumanTownHall::HumanTownHall(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
+                             int health, int armor) : TownHall(id, name, xSize, ySize, x, y, health, armor,
+                                                               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t HumanBarracks::id = HUMANS + BUILDING + BARRACKS;
@@ -29,10 +28,9 @@ const size_t HumanBarracks::ySize = 2;
 const int HumanBarracks::startHealth = 800;
 const int HumanBarracks::startArmor = 8;
 
-HumanBarracks::HumanBarracks(std::shared_ptr<HumanUnitFactory> factory, int x, int y,
-                             int health, int armor) :
-Barracks(id, name, xSize, ySize, x, y, health, armor,
-         std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+HumanBarracks::HumanBarracks(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
+                             int health, int armor) : Barracks(id, name, xSize, ySize, x, y, health, armor,
+                                                               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t HumanWorker::id = HUMANS + CREATURE + WORKER;
@@ -44,10 +42,10 @@ const int HumanWorker::startArmor = 0;
 const int HumanWorker::startDamage = 4;
 const double HumanWorker::startRange = 1.5;
 
-HumanWorker::HumanWorker(std::shared_ptr<HumanUnitFactory> factory, int x, int y,
+HumanWorker::HumanWorker(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
                          int health, int armor, int damage, double range) :
-Worker(id, name, xSize, ySize, x, y, health, armor, damage, range,
-       std::dynamic_pointer_cast<UnitFactory>(factory)) { }
+        Worker(id, name, xSize, ySize, x, y, health, armor, damage, range,
+               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t HumanWarrior::id = HUMANS + CREATURE + WARRIOR;
@@ -60,7 +58,7 @@ const int HumanWarrior::startDamage = 15;
 const double HumanWarrior::startRange = 1.5;
 
 HumanWarrior::HumanWarrior(int x, int y, int health, int armor, int damage, double range) :
-Warrior(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
+        Warrior(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
 
 
 const size_t HumanArcher::id = HUMANS + CREATURE + ARCHER;
@@ -73,7 +71,7 @@ const int HumanArcher::startDamage = 20;
 const double HumanArcher::startRange = 7.1;
 
 HumanArcher::HumanArcher(int x, int y, int health, int armor, int damage, double range) :
-Archer(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
+        Archer(id, name, xSize, ySize, x, y, health, armor, damage, range) { }
 
 
 const size_t HumanHealer::id = HUMANS + CREATURE + HEALER;
@@ -89,4 +87,4 @@ const double HumanHealer::startHealRange = 3;
 
 HumanHealer::HumanHealer(int x, int y, int health, int armor,
                          int damage, double range, int heal, double healRange) :
-Healer(id, name, xSize, ySize, x, y, health, armor, damage, range, heal, healRange) { }
+        Healer(id, name, xSize, ySize, x, y, health, armor, damage, range, heal, healRange) { }
