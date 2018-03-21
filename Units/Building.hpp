@@ -19,7 +19,7 @@ protected:
     
 public:
     Building(size_t id, std::string name, size_t xSize, size_t ySize,
-             int x, int y, int health, int armor,
+             int x, int y, int maxHealt, int health, int armor,
              std::shared_ptr<const UnitFactory> creatureFactory);
 };
 
@@ -27,7 +27,7 @@ class Worker;
 class TownHall : public Building {
 public:
     TownHall(size_t id, std::string name, size_t xSize, size_t ySize,
-             int x, int y, int health, int armor,
+             int x, int y, int maxHealt, int health, int armor,
              std::shared_ptr<const UnitFactory> creatureFactory);
     
     std::shared_ptr<Worker> createWorker() const;
@@ -40,7 +40,7 @@ class Healer;
 class Barracks : public Building {
 public:
     Barracks(size_t id, std::string name, size_t xSize, size_t ySize,
-             int x, int y, int health, int armor,
+             int x, int y, int maxHealt, int health, int armor,
              std::shared_ptr<const UnitFactory> creatureFactory);
     
     std::shared_ptr<Warrior> createWarrior() const;

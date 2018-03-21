@@ -15,14 +15,31 @@
 #include "Units/Unit.hpp"
 
 
+enum Attack {
+    SUCCESSFUL_ATTACK = 0,
+    SMALL_RANGE_ATTACK,
+    BAD_TARGET_ATTACK
+};
+
+enum Move {
+    SUCCESSFUL_MOVE = 0,
+    SMALL_RANGE_MOVE,
+    ENGAGED_MOVE,
+    IMPOSSIBLE_MOVE,
+};
+
 class Creature : public Unit {
 protected:
     int damage_;
-    double range_;
+    double attackRange_;
+    double moveRange_;
 
     static const double minDamageMultiplier_;
     static const double maxDamageMultiplier_;
     static const double armorMultiplier_;
+    static const int minDamage_;
+    static const double minAttackRange_;
+    static const double minMoveRange_;
 
     void update();
 
@@ -31,16 +48,17 @@ protected:
                                     std::pair<int, int> second);
     
 public:
-    Creature(size_t id, std::string name, size_t xSize, size_t ySize,
-             int x, int y, int health, int armor, int damage, double range);
+    Creature(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health, int armor,
+             int damage = minDamage_, double attackRange = minAttackRange_, double moveRange = minMoveRange_);
     
     int getDamage() const;
-    double getRange() const;
+    double getAttackRange() const;
+    double getMoveRange() const;
     
-    void attack(std::shared_ptr<Unit> target) const;
+    Attack attack(std::shared_ptr<Unit> target) const;
     // Currently without any borders
-    void moveTo(int x, int y);
-    void moveBy(int x, int y);
+    Move moveTo(int x, int y);
+    Move moveBy(int x, int y);
 };
 
 
@@ -53,7 +71,7 @@ protected:
     
 public:
     Worker(size_t id, std::string name, size_t xSize, size_t ySize,
-           int x, int y, int health, int armor, int damage, double range,
+           int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
            std::shared_ptr<const UnitFactory> buildingFactory);
     
     // Currently without any borders
@@ -67,33 +85,42 @@ public:
 class Warrior : public Creature {
 public:
     Warrior(size_t id, std::string name, size_t xSize, size_t ySize,
-            int x, int y, int health, int armor, int damage, double range);
+            int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
 class Archer : public Creature {
 public:
     Archer(size_t id, std::string name, size_t xSize, size_t ySize,
-            int x, int y, int health, int armor, int damage, double range);
+            int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
+enum Heal {
+    SUCCESSFUL_HEAL = 0,
+    SMALL_RANGE_HEAL,
+    BAD_TARGET_HEAL
+};
+
 class Healer : public Creature {
 protected:
-    size_t heal_;
+    int heal_;
     double healRange_;
+
+    static const int minHeal_;
+    static const double minHealRange_;
 
     void update();
     
 public:
-    Healer(size_t id, std::string name, size_t xSize, size_t ySize,
-           int x, int y, int health, int armor, int damage,
-           double range, size_t heal, double healRange);
+    Healer(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
+           int health, int armor, int damage = minDamage_, double attackRange = minAttackRange_,
+           double moveRange = minMoveRange_, int heal = minHeal_, double healRange = minHealRange_);
 
-    size_t getHeal() const;
+    int getHeal() const;
     double getHealRange() const;
     
-    void heal(std::shared_ptr<Unit> target);
+    Heal heal(std::shared_ptr<Creature> target);
 };
 
 

@@ -54,7 +54,7 @@ protected:
     
 public:
     Unit(size_t id, std::string name, size_t xSize, size_t ySize,
-         int x, int y, int health, int armor);
+         int x, int y, int maxHealth, int health, int armor);
     virtual ~Unit() { }
     
     size_t getUniqueId() const;
@@ -65,7 +65,7 @@ public:
     int getMaxHealth() const;
     int getHealth() const;
     int getArmor() const;
-    
+
     void takeDamage(int damage); // Clear damage
     void takeHeal(int heal);
 };

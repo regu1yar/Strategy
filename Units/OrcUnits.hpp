@@ -20,12 +20,11 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
 
-    OrcTownHall(std::shared_ptr<const OrcUnitFactory> factory,
-                int x = 0, int y = 0,
-                int health = startHealth, int armor = startArmor);
+    explicit OrcTownHall(std::shared_ptr<const OrcUnitFactory> factory, int x = 0, int y = 0,
+                int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~OrcTownHall() { }
 };
@@ -37,12 +36,11 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
 
-    OrcBarracks(std::shared_ptr<const OrcUnitFactory> factory,
-                int x = 0, int y = 0,
-                int health = startHealth, int armor = startArmor);
+    explicit OrcBarracks(std::shared_ptr<const OrcUnitFactory> factory, int x = 0, int y = 0,
+                int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~OrcBarracks() { }
 };
@@ -54,15 +52,16 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
-    static const int startDamage;
-    static const double startRange;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
+    static const int defaultStartDamage;
+    static const double defaultStartAttackRange;
+    static const double defaultStartMoveRange;
 
-    OrcWorker(std::shared_ptr<const OrcUnitFactory> factory,
-              int x = 0, int y = 0,
-              int health = startHealth, int armor = startArmor,
-              int damage = startDamage, double range = startRange);
+    explicit OrcWorker(std::shared_ptr<const OrcUnitFactory> factory,
+              int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+              int damage = defaultStartDamage, double range = defaultStartAttackRange,
+              double moveRange = defaultStartMoveRange);
     
     ~OrcWorker() { }
 };
@@ -74,14 +73,15 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
-    static const int startDamage;
-    static const double startRange;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
+    static const int defaultStartDamage;
+    static const double defaultStartAttackRange;
+    static const double defaultStartMoveRange;
 
-    OrcWarrior(int x = 0, int y = 0,
-               int health = startHealth, int armor = startArmor,
-               int damage = startDamage, double range = startRange);
+    explicit OrcWarrior(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+               int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+               double moveRange = defaultStartMoveRange);
     
     ~OrcWarrior() { }
 };
@@ -93,14 +93,15 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
-    static const int startDamage;
-    static const double startRange;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
+    static const int defaultStartDamage;
+    static const double defaultStartAttackRange;
+    static const double defaultStartMoveRange;
 
-    OrcArcher(int x = 0, int y = 0,
-              int health = startHealth, int armor = startArmor,
-              int damage = startDamage, double range = startRange);
+    explicit OrcArcher(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+              int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+              double moveRange = defaultStartMoveRange);
     
     ~OrcArcher() { }
 };
@@ -112,17 +113,18 @@ public:
     static const std::string name;
     static const size_t xSize;
     static const size_t ySize;
-    static const int startHealth;
-    static const int startArmor;
-    static const int startDamage;
-    static const double startRange;
-    static const int startHeal;
-    static const double startHealRange;
+    static const int defaultStartHealth;
+    static const int defaultStartArmor;
+    static const int defaultStartDamage;
+    static const double defaultStartAttackRange;
+    static const double defaultStartMoveRange;
+    static const int defaultStartHeal;
+    static const double defaultStartHealRange;
 
-    OrcHealer(int x = 0, int y = 0,
-              int health = startHealth, int armor = startArmor,
-              int damage = startDamage, double range = startRange,
-              int heal = startHeal, double healRange = startHealRange);
+    explicit OrcHealer(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+              int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+              double moveRange = defaultStartMoveRange, int heal = defaultStartHeal,
+              double healRange = defaultStartHealRange);
     
     ~OrcHealer() { }
 };
