@@ -44,11 +44,12 @@ protected:
     void update();
 
     static int calculateDamage(int damage, int armor);
-    static double calculateDistance(std::pair<int, int> first,
-                                    std::pair<int, int> second);
+    static double calculateDistance(const std::pair<int, int> &first,
+                                    const std::pair<int, int> &second);
     
 public:
-    Creature(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health, int armor,
+    Creature(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health,
+             int armor,
              int damage = minDamage_, double attackRange = minAttackRange_, double moveRange = minMoveRange_);
     
     int getDamage() const;
@@ -70,9 +71,9 @@ protected:
     std::shared_ptr<const UnitFactory> buildingFactory_;
     
 public:
-    Worker(size_t id, std::string name, size_t xSize, size_t ySize,
+    Worker(size_t id, const std::string &name, size_t xSize, size_t ySize,
            int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
-           std::shared_ptr<const UnitFactory> buildingFactory);
+           const std::shared_ptr<const UnitFactory> &buildingFactory);
     
     // Currently without any borders
     std::shared_ptr<TownHall> buildTownHall() const;
@@ -84,15 +85,15 @@ public:
 
 class Warrior : public Creature {
 public:
-    Warrior(size_t id, std::string name, size_t xSize, size_t ySize,
+    Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize,
             int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
 class Archer : public Creature {
 public:
-    Archer(size_t id, std::string name, size_t xSize, size_t ySize,
-            int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
+    Archer(size_t id, const std::string &name, size_t xSize, size_t ySize,
+           int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
@@ -113,7 +114,7 @@ protected:
     void update();
     
 public:
-    Healer(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
+    Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
            int health, int armor, int damage = minDamage_, double attackRange = minAttackRange_,
            double moveRange = minMoveRange_, int heal = minHeal_, double healRange = minHealRange_);
 

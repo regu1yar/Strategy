@@ -5,8 +5,8 @@
 //  Created by Роман Климовицкий on 18.03.2018.
 //
 
-#include "Test/PlayerTest.hpp"
 #include "Test/UnitsTest.hpp"
+#include "Test/PlayerTest.hpp"
 
 
 int main(int argc, char *argv[]) {

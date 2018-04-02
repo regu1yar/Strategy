@@ -30,14 +30,14 @@ int Creature::calculateDamage(int damage, int armor) {
     return realDamage;
 }
 
-double Creature::calculateDistance(std::pair<int, int> first,
-                                std::pair<int, int> second) {
+double Creature::calculateDistance(const std::pair<int, int> &first,
+                                   const std::pair<int, int> &second) {
     return sqrt(pow(first.first - second.second, 2) +
                 pow(first.second - second.second, 2));
 }
 
 
-Creature::Creature(size_t id, std::string name, size_t xSize, size_t ySize,
+Creature::Creature(size_t id, const std::string &name, size_t xSize, size_t ySize,
                    int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
         Unit(id, name, xSize, ySize, x, y, maxHealth, health, armor),
         damage_(damage), attackRange_(attackRange), moveRange_(moveRange) { }
@@ -78,9 +78,9 @@ Move Creature::moveBy(int x, int y) {
 }
 
 
-Worker::Worker(size_t id, std::string name, size_t xSize, size_t ySize,
+Worker::Worker(size_t id, const std::string &name, size_t xSize, size_t ySize,
                int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
-               std::shared_ptr<const UnitFactory> buildingFactory) :
+               const std::shared_ptr<const UnitFactory> &buildingFactory) :
         Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
         buildingFactory_(buildingFactory) { }
 
@@ -109,20 +109,20 @@ std::shared_ptr<Barracks> Worker::buildBarracks(int x, int y) {
 }
 
 
-Warrior::Warrior(size_t id, std::string name, size_t xSize, size_t ySize,
+Warrior::Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize,
                  int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
 Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
 
 
-Archer::Archer(size_t id, std::string name, size_t xSize, size_t ySize,
-                int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
+Archer::Archer(size_t id, const std::string &name, size_t xSize, size_t ySize,
+               int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
 Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
 
 
 const int Healer::minHeal_ = 0;
 const double Healer::minHealRange_ = 0;
 
-Healer::Healer(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
+Healer::Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
                int health, int armor, int damage, double attackRange, double moveRange, int heal, double healRange) :
         Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
         heal_(heal), healRange_(healRange) { }

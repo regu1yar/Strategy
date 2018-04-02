@@ -10,21 +10,21 @@
 #include "Units/OrcUnitFactory.hpp"
 
 
-PlayerBuilder::PlayerBuilder(std::string nickname) : nickname_(nickname) { }
+PlayerBuilder::PlayerBuilder(const std::string &nickname) : nickname_(nickname) { }
 
 std::shared_ptr<Player> PlayerBuilder::getPlayer() const {
     return std::make_shared<Player>(nickname_, race_, factory_);
 }
 
 
-HumanPlayerBuilder::HumanPlayerBuilder(std::string nickname) : PlayerBuilder(nickname) { }
+HumanPlayerBuilder::HumanPlayerBuilder(const std::string &nickname) : PlayerBuilder(nickname) { }
 
 void HumanPlayerBuilder::buildRace() { race_ = HUMANS; }
 
 void HumanPlayerBuilder::buildFactory() { factory_ = std::make_shared<HumanUnitFactory>(); }
 
 
-OrcPlayerBuilder::OrcPlayerBuilder(std::string nickname) : PlayerBuilder(nickname) { }
+OrcPlayerBuilder::OrcPlayerBuilder(const std::string &nickname) : PlayerBuilder(nickname) { }
 
 void OrcPlayerBuilder::buildRace() { race_ = ORCS; }
 

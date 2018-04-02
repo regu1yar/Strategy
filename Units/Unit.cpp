@@ -10,9 +10,12 @@
 
 size_t Unit::counter_ = 0;
 
-Unit::Unit(size_t id, std::string name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health, int armor) :
+Unit::Unit(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health,
+           int armor) :
         uniqueId_(counter_), id_(id), name_(name), xSize_(xSize), ySize_(ySize), x_(x), y_(y),
-        maxHealth_(maxHealth), health_(health), armor_(armor) { ++counter_; }
+        maxHealth_(maxHealth), health_(health), armor_(armor) {
+    ++counter_;
+}
 
 size_t Unit::getUniqueId() const { return uniqueId_; }
 
@@ -41,3 +44,5 @@ void Unit::takeHeal(int heal) {
 }
 
 void Unit::update() { health_ = std::min(std::max(health_, 0), maxHealth_); }
+
+void Unit::setCounterToZero() { counter_ = 0; }

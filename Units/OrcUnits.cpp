@@ -16,7 +16,7 @@ const size_t OrcTownHall::ySize = 2;
 const int OrcTownHall::defaultStartHealth = 1200;
 const int OrcTownHall::defaultStartArmor = 8;
 
-OrcTownHall::OrcTownHall(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
+OrcTownHall::OrcTownHall(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
                          int health, int armor) : TownHall(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
                                                            std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
@@ -28,7 +28,7 @@ const size_t OrcBarracks::ySize = 2;
 const int OrcBarracks::defaultStartHealth = 900;
 const int OrcBarracks::defaultStartArmor = 7;
 
-OrcBarracks::OrcBarracks(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
+OrcBarracks::OrcBarracks(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
                          int health, int armor) : Barracks(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
                                                            std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
@@ -43,7 +43,7 @@ const int OrcWorker::defaultStartDamage = 5;
 const double OrcWorker::defaultStartAttackRange = 1.5;
 const double OrcWorker::defaultStartMoveRange = 9;
 
-OrcWorker::OrcWorker(std::shared_ptr<const OrcUnitFactory> factory, int x, int y,
+OrcWorker::OrcWorker(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
                      int health, int armor, int damage, double attackRange, double moveRange) :
         Worker(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
                std::dynamic_pointer_cast<const UnitFactory>(factory)) { }

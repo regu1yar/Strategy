@@ -19,7 +19,7 @@ protected:
     std::shared_ptr<UnitFactory> factory_;
     
 public:
-    PlayerBuilder(std::string nickname);
+    PlayerBuilder(const std::string &nickname);
     virtual ~PlayerBuilder() { }
     
     std::shared_ptr<Player> getPlayer() const;
@@ -31,7 +31,7 @@ public:
 
 class HumanPlayerBuilder : public PlayerBuilder {
 public:
-    HumanPlayerBuilder(std::string nickname);
+    HumanPlayerBuilder(const std::string &nickname);
     ~HumanPlayerBuilder() { }
     
     virtual void buildRace();
@@ -41,7 +41,7 @@ public:
 
 class OrcPlayerBuilder : public PlayerBuilder {
 public:
-    OrcPlayerBuilder(std::string nickname);
+    OrcPlayerBuilder(const std::string &nickname);
     ~OrcPlayerBuilder() { }
     
     virtual void buildRace();

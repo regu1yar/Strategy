@@ -16,7 +16,7 @@ const size_t HumanTownHall::ySize = 2;
 const int HumanTownHall::defaultStartHealth = 1000;
 const int HumanTownHall::defaultStartArmor = 10;
 
-HumanTownHall::HumanTownHall(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
+HumanTownHall::HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory, int x, int y,
                              int health, int armor) : TownHall(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
                                                                std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
@@ -28,7 +28,7 @@ const size_t HumanBarracks::ySize = 2;
 const int HumanBarracks::defaultStartHealth = 800;
 const int HumanBarracks::defaultStartArmor = 8;
 
-HumanBarracks::HumanBarracks(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
+HumanBarracks::HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory, int x, int y,
                              int health, int armor) : Barracks(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
                                                                std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
@@ -43,7 +43,7 @@ const int HumanWorker::defaultStartDamage = 4;
 const double HumanWorker::defaultStartAttackRange = 1.5;
 const double HumanWorker::defaultStartMoveRange = 10;
 
-HumanWorker::HumanWorker(std::shared_ptr<const HumanUnitFactory> factory, int x, int y,
+HumanWorker::HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory, int x, int y,
                          int health, int armor, int damage, double attackRange, double moveRange) :
         Worker(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
                std::dynamic_pointer_cast<const UnitFactory>(factory)) { }

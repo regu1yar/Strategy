@@ -4,7 +4,7 @@ project(MyStrategy)
 set(CMAKE_CXX_STANDART 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-if(DEBUG="ON")
+if(DEBUG)
 	set(CMAKE_BUILD_TYPE Debug)
 else()
 	set(CMAKE_BUILD_TYPE Release)

@@ -10,8 +10,11 @@
 
 #include <gtest/gtest.h>
 #include <cmath>
+#include <set>
 #include "Units/HumanUnits.hpp"
 #include "Units/HumanUnitFactory.hpp"
+#include "Units/OrcUnits.hpp"
+#include "Units/OrcUnitFactory.hpp"
 #include "Utils/Utils.hpp"
 
 
@@ -20,13 +23,13 @@ protected:
     std::shared_ptr<HumanUnitFactory> humanFactory;
     std::shared_ptr<OrcUnitFactory> orcFactory;
 
-    static size_t unitCounter;
     static int defaultXPos;
     static int defaultYPos;
     
     void SetUp() {
         humanFactory = std::make_shared<HumanUnitFactory>();
         orcFactory = std::make_shared<OrcUnitFactory>();
+        Unit::setCounterToZero();
         std::cout << "UNITS TEST SET UP" << std::endl;
     }
     
@@ -36,13 +39,16 @@ protected:
 
     template<typename CUnit, typename Func>
     std::shared_ptr<CUnit> getUnit(Func func) {
-        ++unitCounter;
         return func();
     }
 
+    void checkId(std::set<size_t>& ids, const std::shared_ptr<Unit>& unit) {
+        EXPECT_EQ(ids.find(unit->getUniqueId()), ids.end());
+        ids.insert(unit->getUniqueId());
+    }
+
     template<class CUnit>
-    void testUnitConstruction(std::shared_ptr<Unit> unit) {
-//        EXPECT_EQ(unit->getUniqueId(), unitCounter);
+    void testUnitConstruction(const std::shared_ptr<Unit>& unit) {
         EXPECT_EQ(unit->getId(), CUnit::id);
         EXPECT_EQ(unit->getName(), CUnit::name);
         EXPECT_EQ(unit->getSize().first, CUnit::xSize);
@@ -55,16 +61,48 @@ protected:
     }
 
     template<class CCreature>
-    void testCreatureConstruction(std::shared_ptr<Creature> creature) {
+    void testCreatureConstruction(const std::shared_ptr<Creature>& creature) {
         EXPECT_EQ(creature->getDamage(), CCreature::defaultStartDamage);
         EXPECT_EQ(creature->getAttackRange(), CCreature::defaultStartAttackRange);
         EXPECT_EQ(creature->getMoveRange(), CCreature::defaultStartMoveRange);
     }
 };
 
-size_t UnitsTest::unitCounter = -1;
 int UnitsTest::defaultXPos = 0;
 int UnitsTest::defaultYPos = 0;
+
+TEST_F(UnitsTest, idUniqueness) {
+    std::set<size_t> uniqueIds;
+    std::shared_ptr<Unit> unit;
+
+    unit = humanFactory->getTownHall(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = humanFactory->getBarracks(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = humanFactory->getWorker(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = humanFactory->getWarrior(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = humanFactory->getArcher(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = humanFactory->getHealer(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+
+    unit = orcFactory->getTownHall(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = orcFactory->getBarracks(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = orcFactory->getWorker(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = orcFactory->getWarrior(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = orcFactory->getArcher(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+    unit = orcFactory->getHealer(defaultXPos, defaultYPos);
+    checkId(uniqueIds, unit);
+
+    std::cout << "ID UNIQUENESS TEST PASSED" << std::endl;
+}
 
 TEST_F(UnitsTest, TownHallConstructing) {
     std::shared_ptr<Unit> humanTownHall = getUnit<Unit>([this]() {

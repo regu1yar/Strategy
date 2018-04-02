@@ -53,7 +53,7 @@ protected:
     void update();
     
 public:
-    Unit(size_t id, std::string name, size_t xSize, size_t ySize,
+    Unit(size_t id, const std::string &name, size_t xSize, size_t ySize,
          int x, int y, int maxHealth, int health, int armor);
     virtual ~Unit() { }
     
@@ -68,6 +68,8 @@ public:
 
     void takeDamage(int damage); // Clear damage
     void takeHeal(int heal);
+
+    static void setCounterToZero();
 };
 
 

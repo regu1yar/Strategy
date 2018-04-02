@@ -16,7 +16,7 @@ const int Player::yStartPositionShift_ = 20;
 int Player::curXStartPosition_ = 0;
 int Player::curYStartPosition_ = 0;
 
-Player::Player(std::string nickname, Race race, std::shared_ptr<const UnitFactory> factory,
+Player::Player(const std::string &nickname, Race race, const std::shared_ptr<const UnitFactory> &factory,
                int x, int y) : nickname_(nickname), race_(race), factory_(factory),
                                xStartPosition_(x), yStartPosition_(y) {
     setStartResources();

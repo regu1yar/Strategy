@@ -22,11 +22,10 @@ public:
     static const size_t ySize;
     static const int defaultStartHealth;
     static const int defaultStartArmor;
-    
-public:
-    explicit HumanTownHall(std::shared_ptr<const HumanUnitFactory>,
-                  int x = 0, int y = 0,
-                  int health = defaultStartHealth, int armor = defaultStartArmor);
+
+    explicit HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory,
+                           int x = 0, int y = 0,
+                           int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~HumanTownHall() { }
 };
@@ -41,9 +40,9 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit HumanBarracks(std::shared_ptr<const HumanUnitFactory>,
-                  int x = 0, int y = 0,
-                  int health = defaultStartHealth, int armor = defaultStartArmor);
+    explicit HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory,
+                           int x = 0, int y = 0,
+                           int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~HumanBarracks() { }
 };
@@ -61,10 +60,10 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit HumanWorker(std::shared_ptr<const HumanUnitFactory>,
-                int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
-                int damage = defaultStartDamage, double range = defaultStartAttackRange,
-                double moveRange = defaultStartMoveRange);
+    explicit HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory,
+                         int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+                         int damage = defaultStartDamage, double range = defaultStartAttackRange,
+                         double moveRange = defaultStartMoveRange);
     
     ~HumanWorker() { }
 };
@@ -83,8 +82,8 @@ public:
     static const double defaultStartMoveRange;
 
     explicit HumanWarrior(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
-                 int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
-                 double moveRange = defaultStartMoveRange);
+                          int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+                          double moveRange = defaultStartMoveRange);
     
     ~HumanWarrior() { }
 };
@@ -103,8 +102,8 @@ public:
     static const double defaultStartMoveRange;
 
     explicit HumanArcher(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
-                int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
-                double moveRange = defaultStartMoveRange);
+                         int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+                         double moveRange = defaultStartMoveRange);
     
     ~HumanArcher() { }
 };

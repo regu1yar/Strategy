@@ -37,7 +37,7 @@ public:
     static const int xStartPositionShift_;
     static const int yStartPositionShift_;
 
-    Player(std::string nickname, Race race, std::shared_ptr<const UnitFactory> factory,
+    Player(const std::string &nickname, Race race, const std::shared_ptr<const UnitFactory> &factory,
            int x = curXStartPosition_, int y = curYStartPosition_);
     
     std::string getNickname() const;
