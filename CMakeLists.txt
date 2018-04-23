@@ -17,15 +17,17 @@ endif()
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(UNITS_SOURCE Units/Unit.hpp Units/Unit.cpp Units/Building.hpp Units/Building.cpp Units/Creature.hpp Units/Creature.cpp Units/UnitFactory.hpp Units/OrcUnitFactory.hpp Units/HumanUnitFactory.hpp Units/HumanUnits.hpp Units/HumanUnits.cpp Units/OrcUnits.hpp Units/OrcUnits.cpp)
+file(GLOB UNITS_SOURCE Units/*.hpp Units/*.cpp)
+file(GLOB PLAYER_SOURCE Player/*.hpp Player/*.cpp)
+file(GLOB UTILS_SOURCE Utils/*.hpp Utils/*.cpp)
+file(GLOB ARMY_SOURCE Army/*.hpp Army/*.cpp)
+file(GLOB MAP_SOURCE Map/*.hpp Map/*.cpp)
+file(GLOB GAME_PROCESS_SOURCE Game_Process/*.hpp Game_Process/*.cpp)
 
-set(PLAYER_SOURCE Player/Player.hpp Player/Player.cpp Player/PlayerDirector.hpp Player/PlayerDirector.cpp)
-
-set(UTILS_SOURCE Utils/Utils.hpp Utils/Utils.cpp)
-
-add_library(MyStrategyLib ${UNITS_SOURCE} ${PLAYER_SOURCE} ${UTILS_SOURCE})
+add_library(MyStrategyLib ${UNITS_SOURCE} ${PLAYER_SOURCE} ${UTILS_SOURCE}
+		${ARMY_SOURCE} ${MAP_SOURCE} ${GAME_PROCESS_SOURCE})
 if(WITH_TEST)
-	set(TESTS Test/PlayerTest.hpp Test/UnitsTest.hpp)
+	file(GLOB TESTS Test/*.hpp)
 	add_executable(MyStrategy main.cpp ${TESTS})
 	target_link_libraries(MyStrategy MyStrategyLib ${GTEST_LIBRARIES} pthread)
 endif()

@@ -23,8 +23,8 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory,
-                           int x = 0, int y = 0,
+    explicit HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                           size_t x = 0, size_t y = 0,
                            int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~HumanTownHall() { }
@@ -40,8 +40,8 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory,
-                           int x = 0, int y = 0,
+    explicit HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                           size_t x = 0, size_t y = 0,
                            int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~HumanBarracks() { }
@@ -60,8 +60,8 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory,
-                         int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+    explicit HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                         size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
                          int damage = defaultStartDamage, double range = defaultStartAttackRange,
                          double moveRange = defaultStartMoveRange);
     
@@ -81,7 +81,8 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit HumanWarrior(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+    explicit HumanWarrior(const std::shared_ptr<IMap>& map,
+                          size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
                           int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
                           double moveRange = defaultStartMoveRange);
     
@@ -101,7 +102,8 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit HumanArcher(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+    explicit HumanArcher(const std::shared_ptr<IMap>& map,
+                         size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
                          int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
                          double moveRange = defaultStartMoveRange);
     
@@ -123,10 +125,11 @@ public:
     static const int defaultStartHeal;
     static const double defaultStartHealRange;
 
-    explicit HumanHealer(int x = 0, int y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
-                int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
-                double moveRange = defaultStartMoveRange, int heal = defaultStartHeal,
-                double healRange = defaultStartHealRange);
+    explicit HumanHealer(const std::shared_ptr<IMap>& map,
+                         size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
+                         int damage = defaultStartDamage, double attackRange = defaultStartAttackRange,
+                         double moveRange = defaultStartMoveRange, int heal = defaultStartHeal,
+                         double healRange = defaultStartHealRange);
     
     ~HumanHealer() { }
 };

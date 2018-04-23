@@ -5,6 +5,8 @@
 //  Created by Роман Климовицкий on 18.03.2018.
 //
 
+#include "Units/HumanUnitFactory.hpp"
+#include "Units/OrcUnitFactory.hpp"
 #include "Player/Player.hpp"
 
 
@@ -13,12 +15,22 @@ const int Player::startTownHalls_ = 1;
 const int Player::xStartPositionShift_ = 20;
 const int Player::yStartPositionShift_ = 20;
 
-int Player::curXStartPosition_ = 0;
-int Player::curYStartPosition_ = 0;
+size_t Player::curXStartPosition_ = 0;
+size_t Player::curYStartPosition_ = 0;
 
-Player::Player(const std::string &nickname, Race race, const std::shared_ptr<const UnitFactory> &factory,
-               int x, int y) : nickname_(nickname), race_(race), factory_(factory),
-                               xStartPosition_(x), yStartPosition_(y) {
+Player::Player(const std::string &nickname, Race race,
+               const std::shared_ptr<IMap>& map, size_t x, size_t y) : nickname_(nickname), race_(race), map_(map),
+                                                                       xStartPosition_(x), yStartPosition_(y) {
+    switch (race_) {
+        case HUMANS:
+            factory_ = std::make_shared<HumanUnitFactory>(map_);
+            break;
+        case ORCS:
+            factory_ = std::make_shared<OrcUnitFactory>(map_);
+            break;
+        default:
+            break;
+    }
     setStartResources();
     updateStartPositions();
 }
@@ -51,11 +63,11 @@ std::string Player::getNickname() const { return nickname_; }
 
 Race Player::getRace() const { return race_; }
 
-std::pair<int, int> Player::getStartPosition() const {
+std::pair<size_t, size_t> Player::getStartPosition() const {
     return {xStartPosition_, yStartPosition_};
 }
 
 size_t Player::getUnitsNumber() const { return units_.size(); }
 
-std::pair<int, int> Player::getCurStartPosition() { return {curXStartPosition_,
+std::pair<size_t, size_t> Player::getCurStartPosition() { return {curXStartPosition_,
     curYStartPosition_}; }

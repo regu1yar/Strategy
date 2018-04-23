@@ -16,36 +16,33 @@ class PlayerBuilder {
 protected:
     std::string nickname_;
     Race race_;
-    std::shared_ptr<UnitFactory> factory_;
+    std::shared_ptr<IMap> map_;
     
 public:
-    PlayerBuilder(const std::string &nickname);
+    PlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     virtual ~PlayerBuilder() { }
     
     std::shared_ptr<Player> getPlayer() const;
     
     virtual void buildRace() = 0;
-    virtual void buildFactory() = 0;
 };
 
 
 class HumanPlayerBuilder : public PlayerBuilder {
 public:
-    HumanPlayerBuilder(const std::string &nickname);
+    HumanPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     ~HumanPlayerBuilder() { }
     
     virtual void buildRace();
-    virtual void buildFactory();
 };
 
 
 class OrcPlayerBuilder : public PlayerBuilder {
 public:
-    OrcPlayerBuilder(const std::string &nickname);
+    OrcPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     ~OrcPlayerBuilder() { }
     
     virtual void buildRace();
-    virtual void buildFactory();
 };
 
 

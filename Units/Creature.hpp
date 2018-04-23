@@ -18,7 +18,7 @@
 enum Attack {
     SUCCESSFUL_ATTACK = 0,
     SMALL_RANGE_ATTACK,
-    BAD_TARGET_ATTACK
+    BAD_TARGET_ATTACK,
 };
 
 enum Move {
@@ -44,12 +44,13 @@ protected:
     void update();
 
     static int calculateDamage(int damage, int armor);
-    static double calculateDistance(const std::pair<int, int> &first,
-                                    const std::pair<int, int> &second);
+    static double calculateDistance(const std::pair<size_t, size_t> &first,
+                                    const std::pair<size_t, size_t> &second);
     
 public:
-    Creature(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth, int health,
-             int armor,
+    Creature(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map, size_t x,
+             size_t y,
+             int maxHealth, int health, int armor,
              int damage = minDamage_, double attackRange = minAttackRange_, double moveRange = minMoveRange_);
     
     int getDamage() const;
@@ -57,8 +58,7 @@ public:
     double getMoveRange() const;
     
     Attack attack(std::shared_ptr<Unit> target) const;
-    // Currently without any borders
-    Move moveTo(int x, int y);
+    Move moveTo(size_t x, size_t y);
     Move moveBy(int x, int y);
 };
 
@@ -71,29 +71,29 @@ protected:
     std::shared_ptr<const UnitFactory> buildingFactory_;
     
 public:
-    Worker(size_t id, const std::string &name, size_t xSize, size_t ySize,
-           int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
+    Worker(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+           size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
            const std::shared_ptr<const UnitFactory> &buildingFactory);
     
     // Currently without any borders
     std::shared_ptr<TownHall> buildTownHall() const;
-    std::shared_ptr<TownHall> buildTownHall(int x, int y);
+    std::shared_ptr<TownHall> buildTownHall(size_t x, size_t y);
     std::shared_ptr<Barracks> buildBarracks() const;
-    std::shared_ptr<Barracks> buildBarracks(int x, int y);
+    std::shared_ptr<Barracks> buildBarracks(size_t x, size_t y);
 };
 
 
 class Warrior : public Creature {
 public:
-    Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize,
-            int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
+    Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+            size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
 class Archer : public Creature {
 public:
-    Archer(size_t id, const std::string &name, size_t xSize, size_t ySize,
-           int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
+    Archer(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+           size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange);
 };
 
 
@@ -114,8 +114,9 @@ protected:
     void update();
     
 public:
-    Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
-           int health, int armor, int damage = minDamage_, double attackRange = minAttackRange_,
+    Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map, size_t x,
+           size_t y,
+           int maxHealth, int health, int armor, int damage = minDamage_, double attackRange = minAttackRange_,
            double moveRange = minMoveRange_, int heal = minHeal_, double healRange = minHealRange_);
 
     int getHeal() const;

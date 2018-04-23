@@ -71,8 +71,8 @@ TEST_F(PlayerTest, OrcRaceTest) {
 
 TEST_F(PlayerTest, DefaultPositionTest) {
     std::string nickname = "Nickname";
-    int curX = Player::getCurStartPosition().first;
-    int curY = Player::getCurStartPosition().second;
+    size_t curX = Player::getCurStartPosition().first;
+    size_t curY = Player::getCurStartPosition().second;
     std::shared_ptr<HumanPlayerBuilder> builder = std::make_shared<HumanPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player;

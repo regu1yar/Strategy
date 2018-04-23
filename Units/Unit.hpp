@@ -10,6 +10,9 @@
 
 #include <string>
 #include <algorithm>
+#include <memory>
+#include <iostream>
+#include "Map/Map.hpp"
 
 
 enum Race {
@@ -35,15 +38,16 @@ enum CreatureType {
 };
 
 
-class Unit {
+class Unit : public std::enable_shared_from_this<Unit> {
 protected:
     const size_t uniqueId_;
     const size_t id_;
     const std::string name_;
     const size_t xSize_;
     const size_t ySize_;
-    int x_;
-    int y_;
+    std::shared_ptr<IMap> map_;
+    size_t x_;
+    size_t y_;
     int maxHealth_;
     int health_;
     int armor_;
@@ -53,18 +57,21 @@ protected:
     void update();
     
 public:
-    Unit(size_t id, const std::string &name, size_t xSize, size_t ySize,
-         int x, int y, int maxHealth, int health, int armor);
+    Unit(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+         size_t x, size_t y, int maxHealth, int health, int armor);
     virtual ~Unit() { }
     
     size_t getUniqueId() const;
     size_t getId() const;
     std::string getName() const;
     std::pair<size_t, size_t> getSize() const;
-    std::pair<int, int> getPosition() const;
+    std::pair<size_t, size_t> getPosition() const;
     int getMaxHealth() const;
     int getHealth() const;
     int getArmor() const;
+    std::shared_ptr<IMap> getMap() const;
+
+    void putOnMap();
 
     void takeDamage(int damage); // Clear damage
     void takeHeal(int heal);

@@ -10,25 +10,24 @@
 #include "Units/OrcUnitFactory.hpp"
 
 
-PlayerBuilder::PlayerBuilder(const std::string &nickname) : nickname_(nickname) { }
+PlayerBuilder::PlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map) :
+        nickname_(nickname), map_(map) { }
 
 std::shared_ptr<Player> PlayerBuilder::getPlayer() const {
-    return std::make_shared<Player>(nickname_, race_, factory_);
+    return std::make_shared<Player>(nickname_, race_, map_);
 }
 
 
-HumanPlayerBuilder::HumanPlayerBuilder(const std::string &nickname) : PlayerBuilder(nickname) { }
+HumanPlayerBuilder::HumanPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map) :
+        PlayerBuilder(nickname, map) { }
 
 void HumanPlayerBuilder::buildRace() { race_ = HUMANS; }
 
-void HumanPlayerBuilder::buildFactory() { factory_ = std::make_shared<HumanUnitFactory>(); }
 
-
-OrcPlayerBuilder::OrcPlayerBuilder(const std::string &nickname) : PlayerBuilder(nickname) { }
+OrcPlayerBuilder::OrcPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map) :
+        PlayerBuilder(nickname, map) { }
 
 void OrcPlayerBuilder::buildRace() { race_ = ORCS; }
-
-void OrcPlayerBuilder::buildFactory() { factory_ = std::make_shared<OrcUnitFactory>(); }
 
 
 PlayerDirector::PlayerDirector() : builder_(nullptr) { }
@@ -39,6 +38,5 @@ void PlayerDirector::setBuilder(std::shared_ptr<PlayerBuilder> builder) { builde
 
 std::shared_ptr<Player> PlayerDirector::buildPlayer() {
     builder_->buildRace();
-    builder_->buildFactory();
     return builder_->getPlayer();
 }

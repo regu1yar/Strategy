@@ -30,16 +30,17 @@ int Creature::calculateDamage(int damage, int armor) {
     return realDamage;
 }
 
-double Creature::calculateDistance(const std::pair<int, int> &first,
-                                   const std::pair<int, int> &second) {
+double Creature::calculateDistance(const std::pair<size_t, size_t> &first,
+                                   const std::pair<size_t, size_t> &second) {
     return sqrt(pow(first.first - second.second, 2) +
                 pow(first.second - second.second, 2));
 }
 
 
-Creature::Creature(size_t id, const std::string &name, size_t xSize, size_t ySize,
-                   int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
-        Unit(id, name, xSize, ySize, x, y, maxHealth, health, armor),
+Creature::Creature(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+                   size_t x, size_t y, int maxHealth, int health, int armor, int damage,
+                   double attackRange, double moveRange) :
+        Unit(id, name, xSize, ySize, map, x, y, maxHealth, health, armor),
         damage_(damage), attackRange_(attackRange), moveRange_(moveRange) { }
 
 int Creature::getDamage() const { return damage_; }
@@ -56,21 +57,26 @@ void Creature::update() {
 }
 
 Attack Creature::attack(std::shared_ptr<Unit> target) const {
-    if(target == nullptr)
+    if(target == nullptr || map_.get() != target->getMap().get()) {
         return BAD_TARGET_ATTACK;
-    if(calculateDistance(getPosition(), target->getPosition()) > attackRange_)
+    }
+    if(calculateDistance(getPosition(), target->getPosition()) > attackRange_) {
         return SMALL_RANGE_ATTACK;
+    }
     int damage = calculateDamage(damage_, target->getArmor());
     target->takeDamage(damage);
     return SUCCESSFUL_ATTACK;
 }
 
-Move Creature::moveTo(int x, int y) {
+Move Creature::moveTo(size_t x, size_t y) {
     if(calculateDistance({x, y}, getPosition()) > moveRange_)
         return SMALL_RANGE_MOVE;
-    x_ = x;
-    y_ = y;
-    return SUCCESSFUL_MOVE;
+    if(map_->moveTo(x, y, shared_from_this())) {
+        x_ = x;
+        y_ = y;
+        return SUCCESSFUL_MOVE;
+    } else
+        return ENGAGED_MOVE;
 }
 
 Move Creature::moveBy(int x, int y) {
@@ -78,10 +84,11 @@ Move Creature::moveBy(int x, int y) {
 }
 
 
-Worker::Worker(size_t id, const std::string &name, size_t xSize, size_t ySize,
-               int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
+Worker::Worker(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+               size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange,
+               double moveRange,
                const std::shared_ptr<const UnitFactory> &buildingFactory) :
-        Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
+        Creature(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
         buildingFactory_(buildingFactory) { }
 
 std::shared_ptr<TownHall> Worker::buildTownHall() const {
@@ -89,7 +96,7 @@ std::shared_ptr<TownHall> Worker::buildTownHall() const {
     return townHall;
 }
 
-std::shared_ptr<TownHall> Worker::buildTownHall(int x, int y) {
+std::shared_ptr<TownHall> Worker::buildTownHall(size_t x, size_t y) {
     if(moveTo(x - xSize_, y - ySize_) == SUCCESSFUL_MOVE)
         return buildTownHall();
     else
@@ -101,7 +108,7 @@ std::shared_ptr<Barracks> Worker::buildBarracks() const {
     return barracks;
 }
 
-std::shared_ptr<Barracks> Worker::buildBarracks(int x, int y) {
+std::shared_ptr<Barracks> Worker::buildBarracks(size_t x, size_t y) {
     if(moveTo(x - xSize_, y - ySize_) == SUCCESSFUL_MOVE)
         return buildBarracks();
     else
@@ -109,22 +116,25 @@ std::shared_ptr<Barracks> Worker::buildBarracks(int x, int y) {
 }
 
 
-Warrior::Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize,
-                 int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
-Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
+Warrior::Warrior(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+                 size_t x, size_t y, int maxHealth, int health, int armor, int damage,
+                 double attackRange, double moveRange) :
+Creature(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
 
 
-Archer::Archer(size_t id, const std::string &name, size_t xSize, size_t ySize,
-               int x, int y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange) :
-Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
+Archer::Archer(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+               size_t x, size_t y, int maxHealth, int health, int armor, int damage,
+               double attackRange, double moveRange) :
+Creature(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, damage, attackRange, moveRange) { }
 
 
 const int Healer::minHeal_ = 0;
 const double Healer::minHealRange_ = 0;
 
-Healer::Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, int x, int y, int maxHealth,
-               int health, int armor, int damage, double attackRange, double moveRange, int heal, double healRange) :
-        Creature(id, name, xSize, ySize, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
+Healer::Healer(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
+               size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange,
+               double moveRange, int heal, double healRange) :
+        Creature(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
         heal_(heal), healRange_(healRange) { }
 
 int Healer::getHeal() const { return heal_; }
@@ -138,7 +148,7 @@ void Healer::update() {
 }
 
 Heal Healer::heal(std::shared_ptr<Creature> target) {
-    if(target == nullptr)
+    if(target == nullptr || map_.get() != target->getMap().get())
         return BAD_TARGET_HEAL;
     if(calculateDistance(getPosition(), target->getPosition()) > attackRange_)
         return SMALL_RANGE_HEAL;

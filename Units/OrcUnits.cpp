@@ -16,9 +16,10 @@ const size_t OrcTownHall::ySize = 2;
 const int OrcTownHall::defaultStartHealth = 1200;
 const int OrcTownHall::defaultStartArmor = 8;
 
-OrcTownHall::OrcTownHall(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
-                         int health, int armor) : TownHall(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
-                                                           std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+OrcTownHall::OrcTownHall(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                         size_t x, size_t y, int health, int armor) :
+        TownHall(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
+                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t OrcBarracks::id = ORCS + BUILDING + BARRACKS;
@@ -28,9 +29,10 @@ const size_t OrcBarracks::ySize = 2;
 const int OrcBarracks::defaultStartHealth = 900;
 const int OrcBarracks::defaultStartArmor = 7;
 
-OrcBarracks::OrcBarracks(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
-                         int health, int armor) : Barracks(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor,
-                                                           std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+OrcBarracks::OrcBarracks(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                         size_t x, size_t y, int health, int armor) :
+        Barracks(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
+                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
 const size_t OrcWorker::id = ORCS + CREATURE + WORKER;
@@ -43,9 +45,9 @@ const int OrcWorker::defaultStartDamage = 5;
 const double OrcWorker::defaultStartAttackRange = 1.5;
 const double OrcWorker::defaultStartMoveRange = 9;
 
-OrcWorker::OrcWorker(const std::shared_ptr<const OrcUnitFactory> &factory, int x, int y,
-                     int health, int armor, int damage, double attackRange, double moveRange) :
-        Worker(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
+OrcWorker::OrcWorker(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+                     size_t x, size_t y, int health, int armor, int damage, double attackRange, double moveRange) :
+        Worker(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
                std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
 
 
@@ -59,8 +61,9 @@ const int OrcWarrior::defaultStartDamage = 17;
 const double OrcWarrior::defaultStartAttackRange = 1.5;
 const double OrcWarrior::defaultStartMoveRange = 5;
 
-OrcWarrior::OrcWarrior(int x, int y, int health, int armor, int damage, double attackRange, double moveRange) :
-        Warrior(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange) { }
+OrcWarrior::OrcWarrior(const std::shared_ptr<IMap>& map, size_t x, size_t y, int health, int armor, int damage,
+                       double attackRange, double moveRange) :
+        Warrior(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange) { }
 
 
 const size_t OrcArcher::id = ORCS + CREATURE + ARCHER;
@@ -73,8 +76,9 @@ const int OrcArcher::defaultStartDamage = 22;
 const double OrcArcher::defaultStartAttackRange = 7.1;
 const double OrcArcher::defaultStartMoveRange = 7;
 
-OrcArcher::OrcArcher(int x, int y, int health, int armor, int damage, double attackRange, double moveRange) :
-        Archer(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange) { }
+OrcArcher::OrcArcher(const std::shared_ptr<IMap>& map, size_t x, size_t y, int health, int armor, int damage,
+                     double attackRange, double moveRange) :
+        Archer(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange) { }
 
 
 const size_t OrcHealer::id = ORCS + CREATURE + HEALER;
@@ -89,6 +93,7 @@ const double OrcHealer::defaultStartMoveRange = 6;
 const int OrcHealer::defaultStartHeal = 7;
 const double OrcHealer::defaultStartHealRange = 4;
 
-OrcHealer::OrcHealer(int x, int y, int health, int armor,
+OrcHealer::OrcHealer(const std::shared_ptr<IMap>& map, size_t x, size_t y, int health, int armor,
                      int damage, double attackRange, double moveRange, int heal, double healRange) :
-        Healer(id, name, xSize, ySize, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange, heal, healRange) { }
+        Healer(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
+               heal, healRange) { }
