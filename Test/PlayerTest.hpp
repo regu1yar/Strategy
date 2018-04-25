@@ -37,6 +37,7 @@ TEST_F(PlayerTest, HumanNicknameTest) {
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(nickname, player->getNickname());
+
     std::cout << "HUMAN NICKNAME TEST PASSED" << std::endl;
 }
 
@@ -46,6 +47,7 @@ TEST_F(PlayerTest, OrcNicknameTest) {
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(nickname, player->getNickname());
+
     std::cout << "ORC NICKNAME TEST PASSED" << std::endl;
 }
 
@@ -56,6 +58,7 @@ TEST_F(PlayerTest, HumanRaceTest) {
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(race, player->getRace());
+
     std::cout << "HUMAN RACE TEST PASSED" << std::endl;
 }
 
@@ -66,6 +69,7 @@ TEST_F(PlayerTest, OrcRaceTest) {
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(race, player->getRace());
+
     std::cout << "ORC RACE TEST PASSED" << std::endl;
 }
 
@@ -81,6 +85,7 @@ TEST_F(PlayerTest, DefaultPositionTest) {
         EXPECT_EQ(curX + i * Player::xStartPositionShift_, player->getStartPosition().first);
         EXPECT_EQ(curY + i * Player::yStartPositionShift_, player->getStartPosition().second);
     }
+
     std::cout << "DEFAULT POSITION TEST PASSED" << std::endl;
 }
 
@@ -90,6 +95,7 @@ TEST_F(PlayerTest, StartUnitsTest) {
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
     EXPECT_EQ(Player::startWorkers_ + Player::startTownHalls_, player->getUnitsNumber());
+
     std::cout << "START UNITS TEST PASSED" << std::endl;
 }
 

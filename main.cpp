@@ -8,6 +8,7 @@
 #include "Test/UnitsTest.hpp"
 #include "Test/PlayerTest.hpp"
 #include "Test/ArmyTest.hpp"
+#include "Test/EconomyTest.hpp"
 
 
 int main(int argc, char *argv[]) {

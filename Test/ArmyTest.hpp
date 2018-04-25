@@ -35,29 +35,37 @@ TEST_F(ArmyTest, ConstructingTest) {
     auto unit1 = humanFactory->getWarrior(0, 0);
     auto unit2 = humanFactory->getArcher(0, 2);
 
-    army->add(unit2);
+    army->addUnit(unit2);
     EXPECT_EQ(army->getSize(), 1);
     EXPECT_EQ(army->getPosition().first, 0);
     EXPECT_EQ(army->getPosition().second, 2);
 
 //    Currently adding the same army twice doesn't check
-//    army->add(unit2);
+//    army->addUnit(unit2);
 //    EXPECT_EQ(army->getSize(), 1);
 //    EXPECT_EQ(army->getPosition().first, 0);
 //    EXPECT_EQ(army->getPosition().second, 2);
 
-    army->add(unit1);
+    army->addUnit(unit1);
     EXPECT_EQ(army->getSize(), 2);
     EXPECT_EQ(army->getPosition().first, 0);
     EXPECT_EQ(army->getPosition().second, 1);
 
     std::shared_ptr<CompositeArmy> army1 = std::make_shared<CompositeArmy>();
     auto unit3 = humanFactory->getHealer(1, 1);
-    army1->add(unit3);
-    army->add(army1);
+    army1->addUnit(unit3);
+    army->addArmy(army1);
     EXPECT_EQ(army->getSize(), 3);
     EXPECT_EQ(army->getPosition().first, 0);
     EXPECT_EQ(army->getPosition().second, 1);
+
+    army->remove(army1);
+
+    EXPECT_EQ(army->getSize(), 2);
+    EXPECT_EQ(army->getPosition().first, 0);
+    EXPECT_EQ(army->getPosition().second, 1);
+
+    std::cout << "ARMY CONSTRUCTING TEST PASSED" << std::endl;
 }
 
 TEST_F(ArmyTest, AttackTest) {
@@ -66,20 +74,22 @@ TEST_F(ArmyTest, AttackTest) {
     auto unit1 = humanFactory->getWarrior(0, 0);
     auto unit2 = humanFactory->getArcher(0, 2);
 
-    army->add(unit2);
-    army->add(unit1);
+    army->addUnit(unit2);
+    army->addUnit(unit1);
 
-    auto unit4 = humanFactory->getWorker(0, 1);
+    auto unit3 = humanFactory->getWorker(0, 1);
 
     EXPECT_EQ(unit1->getPosition().first, 0);
     EXPECT_EQ(unit1->getPosition().second, 0);
     EXPECT_EQ(unit2->getPosition().first, 0);
     EXPECT_EQ(unit2->getPosition().second, 2);
-    EXPECT_EQ(unit4->getPosition().first, 0);
-    EXPECT_EQ(unit4->getPosition().second, 1);
+    EXPECT_EQ(unit3->getPosition().first, 0);
+    EXPECT_EQ(unit3->getPosition().second, 1);
 
-    army->attack(unit4);
-//    EXPECT_EQ(unit4->getHealth() < unit4->getMaxHealth(), true);
+    army->attack(unit3);
+    EXPECT_EQ(unit3->getHealth() < unit3->getMaxHealth(), true);
+
+    std::cout << "ARMY ATTACK TEST PASSED" << std::endl;
 }
 
 TEST_F(ArmyTest, MoveTest) {
@@ -88,14 +98,74 @@ TEST_F(ArmyTest, MoveTest) {
     auto unit1 = humanFactory->getWarrior(0, 0);
     auto unit2 = humanFactory->getArcher(0, 2);
 
-    army->add(unit2);
-    army->add(unit1);
+    army->addUnit(unit2);
+    army->addUnit(unit1);
 
     army->moveBy(0, 1);
     EXPECT_EQ(army->getPosition().first, 0);
     EXPECT_EQ(army->getPosition().second, 2);
     EXPECT_EQ(unit1->getPosition().first, 0);
     EXPECT_EQ(unit1->getPosition().second, 1);
+    EXPECT_EQ(unit2->getPosition().first, 0);
+    EXPECT_EQ(unit2->getPosition().second, 3);
+
+    std::cout << "ARMY MOVE TEST PASSED" << std::endl;
+}
+
+TEST_F(ArmyTest, NonMoveTest) {
+    std::shared_ptr<CompositeArmy> army = std::make_shared<CompositeArmy>();
+
+    auto unit1 = humanFactory->getTownHall(0, 0);
+    auto unit2 = humanFactory->getBarracks(0, 2);
+
+    army->addUnit(unit2);
+    army->addUnit(unit1);
+
+    army->moveBy(0, 1);
+    EXPECT_EQ(unit1->getPosition().first, 0);
+    EXPECT_EQ(unit1->getPosition().second, 0);
+    EXPECT_EQ(unit2->getPosition().first, 0);
+    EXPECT_EQ(unit2->getPosition().second, 2);
+
+    std::cout << "ARMY NOT MOVE TEST PASSED" << std::endl;
+}
+
+TEST_F(ArmyTest, HealersTest) {
+    std::shared_ptr<CompositeArmy> army = std::make_shared<CompositeArmy>();
+
+    auto unit1 = humanFactory->getHealer(0, 0);
+    auto unit2 = humanFactory->getHealer(0, 2);
+
+    army->addUnit(unit2);
+    army->addUnit(unit1);
+
+    auto unit3 = humanFactory->getWorker(0, 1);
+
+    army->attack(unit3);
+    size_t healthAfterAttack = unit3->getHealth();
+    army->heal(unit3);
+    EXPECT_EQ(healthAfterAttack < unit3->getHealth(), true);
+
+    std::cout << "ARMY HEAL TEST PASSED" << std::endl;
+}
+
+TEST_F(ArmyTest, NonHealerTest) {
+    std::shared_ptr<CompositeArmy> army = std::make_shared<CompositeArmy>();
+
+    auto unit1 = humanFactory->getWarrior(0, 0);
+    auto unit2 = humanFactory->getWarrior(0, 2);
+
+    army->addUnit(unit2);
+    army->addUnit(unit1);
+
+    auto unit3 = humanFactory->getWorker(0, 1);
+
+    army->attack(unit3);
+    size_t healthAfterAttack = unit3->getHealth();
+    army->heal(unit3);
+    EXPECT_EQ(healthAfterAttack == unit3->getHealth(), true);
+
+    std::cout << "ARMY NOT HEAL TEST PASSED" << std::endl;
 }
 
 

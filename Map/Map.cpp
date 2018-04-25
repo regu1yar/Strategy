@@ -69,6 +69,12 @@ bool Map::moveTo(size_t x, size_t y, const std::shared_ptr<Unit>& unit) {
         return false;
 }
 
+std::shared_ptr<Unit> Map::getUnit(size_t x, size_t y) const {
+    if (x >= getXSize() || y >= getYSize())
+        return nullptr;
+    return map_[x][y];
+}
+
 void Map::clear() {
     for (size_t i = 0; i < getXSize(); ++i)
         for (size_t j = 0; j < getYSize(); ++j) {

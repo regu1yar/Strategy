@@ -32,8 +32,8 @@ int Creature::calculateDamage(int damage, int armor) {
 
 double Creature::calculateDistance(const std::pair<size_t, size_t> &first,
                                    const std::pair<size_t, size_t> &second) {
-    return sqrt(pow(first.first - second.second, 2) +
-                pow(first.second - second.second, 2));
+    return sqrt(pow(static_cast<int>(first.first) - static_cast<int>(second.first), 2) +
+                pow(static_cast<int>(first.second) - static_cast<int>(second.second), 2));
 }
 
 

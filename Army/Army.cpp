@@ -42,8 +42,10 @@ std::pair<size_t, size_t> CompositeArmy::calculateAveragePositionAfterRemoving(c
     std::pair<size_t, size_t> pos1 = army1->getPosition();
     std::pair<size_t, size_t> pos2 = army2->getPosition();
 
-    size_t x = (pos1.first * army1->getSize() - pos2.first * army2->getSize()) / (army1->getSize() - army2->getSize());
-    size_t y = (pos1.second * army1->getSize() - pos2.second * army2->getSize()) / (army1->getSize() - army2->getSize());
+    size_t x = (static_cast<int>(pos1.first * army1->getSize()) - static_cast<int>(pos2.first * army2->getSize())) /
+                static_cast<int>(army1->getSize() - army2->getSize());
+    size_t y = (static_cast<int>(pos1.second * army1->getSize()) - static_cast<int>(pos2.second * army2->getSize())) /
+                static_cast<int>(army1->getSize() - army2->getSize());
 
     return { x, y };
 }
@@ -56,7 +58,7 @@ void CompositeArmy::moveBy(int x, int y) {
     }
 }
 
-void CompositeArmy::add(const std::shared_ptr<Army>& army) {
+void CompositeArmy::addArmy(const std::shared_ptr<Army>& army) {
     if (shared_from_this() == army || army_.find(army) != army_.end())
         return;
     std::pair<size_t, size_t> newPos = calculateAveragePositionAfterAdding(shared_from_this(), army);
@@ -64,10 +66,6 @@ void CompositeArmy::add(const std::shared_ptr<Army>& army) {
     y_ = newPos.second;
     size_ += army->getSize();
     army_.insert(army);
-}
-
-void CompositeArmy::add(const std::shared_ptr<Creature>& unit) {
-    add(std::make_shared<CertainUnit<Creature>>(unit));
 }
 
 void CompositeArmy::remove(const std::shared_ptr<Army>& army) {
@@ -102,35 +100,30 @@ void CompositeArmy::heal(const std::shared_ptr<Creature>& target) {
 }
 
 
-template<typename UnitT>
-size_t CertainUnit<UnitT>::getSize() const { return 1; }
-
-template<typename UnitT>
-std::pair<size_t, size_t> CertainUnit<UnitT>::getPosition() const { return unit_->getPosition(); };
-
-template<typename UnitT>
-void CertainUnit<UnitT>::moveBy(int x, int y) { unit_->moveBy(x, y); }
-
-template<typename UnitT>
-void CertainUnit<UnitT>::moveTo(size_t x, size_t y) { unit_->moveTo(x, y); }
-
-template<typename UnitT>
-void CertainUnit<UnitT>::attack(const std::shared_ptr<Unit>& target) { unit_->attack(target); }
-
-template<typename UnitT>
-void CertainUnit<UnitT>::heal(const std::shared_ptr<Creature>& target) { }
+template<>
+void CertainUnit<TownHall>::moveBy(int x, int y) { }
 
 template<>
-void CertainUnit<Building>::moveBy(int x, int y) { }
+void CertainUnit<TownHall>::moveTo(size_t x, size_t y) { }
 
 template<>
-void CertainUnit<Building>::moveTo(size_t x, size_t y) { }
+void CertainUnit<TownHall>::attack(const std::shared_ptr<Unit>& target) { }
 
 template<>
-void CertainUnit<Building>::attack(const std::shared_ptr<Unit>& target) { }
+void CertainUnit<TownHall>::heal(const std::shared_ptr<Creature>& target) { }
+
 
 template<>
-void CertainUnit<Building>::heal(const std::shared_ptr<Creature>& target) { }
+void CertainUnit<Barracks>::moveBy(int x, int y) { }
+
+template<>
+void CertainUnit<Barracks>::moveTo(size_t x, size_t y) { }
+
+template<>
+void CertainUnit<Barracks>::attack(const std::shared_ptr<Unit>& target) { }
+
+template<>
+void CertainUnit<Barracks>::heal(const std::shared_ptr<Creature>& target) { }
 
 
 template<>

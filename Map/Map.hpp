@@ -21,6 +21,8 @@ public:
     virtual void remove(const std::shared_ptr<Unit>& unit) = 0;
     virtual bool moveTo(size_t x, size_t y, const std::shared_ptr<Unit>& unit) = 0;
 
+    virtual std::shared_ptr<Unit> getUnit(size_t x, size_t y) const = 0;
+
     virtual void clear() = 0;
 
     virtual ~IMap() { }
@@ -46,6 +48,8 @@ public:
     virtual std::pair<size_t, size_t> findFree(size_t x, size_t y, const std::shared_ptr<Unit>& unit);
     virtual void remove(const std::shared_ptr<Unit>& unit);
     virtual bool moveTo(size_t x, size_t y, const std::shared_ptr<Unit>& unit);
+
+    virtual std::shared_ptr<Unit> getUnit(size_t x, size_t y) const;
 
     virtual void clear();
 };
