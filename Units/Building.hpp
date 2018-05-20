@@ -15,12 +15,12 @@
 class UnitFactory;
 class Building : public Unit {
 protected:
-    std::shared_ptr<const UnitFactory> creatureFactory_;
+    std::shared_ptr<UnitFactory> creatureFactory_;
     
 public:
     Building(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
              size_t x, size_t y, int maxHealth, int health, int armor,
-             const std::shared_ptr<const UnitFactory> &creatureFactory);
+             const std::shared_ptr<UnitFactory> &creatureFactory);
 };
 
 class Worker;
@@ -28,7 +28,7 @@ class TownHall : public Building {
 public:
     TownHall(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
              size_t x, size_t y, int maxHealth, int health, int armor,
-             const std::shared_ptr<const UnitFactory> &creatureFactory);
+             const std::shared_ptr<UnitFactory> &creatureFactory);
     
     std::shared_ptr<Worker> createWorker() const;
 };
@@ -41,7 +41,7 @@ class Barracks : public Building {
 public:
     Barracks(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
              size_t x, size_t y, int maxHealth, int health, int armor,
-             const std::shared_ptr<const UnitFactory> &creatureFactory);
+             const std::shared_ptr<UnitFactory> &creatureFactory);
     
     std::shared_ptr<Warrior> createWarrior() const;
     std::shared_ptr<Archer> createArcher() const;

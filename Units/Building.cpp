@@ -13,14 +13,14 @@
 Building::Building(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
                    size_t x,
                    size_t y, int maxHealth, int health, int armor,
-                   const std::shared_ptr<const UnitFactory> &creatureFactory) :
+                   const std::shared_ptr<UnitFactory> &creatureFactory) :
         Unit(id, name, xSize, ySize, map, x, y, maxHealth, health, armor), creatureFactory_(creatureFactory) { }
 
 
 TownHall::TownHall(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
                    size_t x,
                    size_t y, int maxHealth, int health, int armor,
-                   const std::shared_ptr<const UnitFactory> &creatureFactory) :
+                   const std::shared_ptr<UnitFactory> &creatureFactory) :
         Building(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, creatureFactory) { }
 
 std::shared_ptr<Worker> TownHall::createWorker() const {
@@ -32,7 +32,7 @@ std::shared_ptr<Worker> TownHall::createWorker() const {
 Barracks::Barracks(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
                    size_t x,
                    size_t y, int maxHealth, int health, int armor,
-                   const std::shared_ptr<const UnitFactory> &creatureFactory) :
+                   const std::shared_ptr<UnitFactory> &creatureFactory) :
         Building(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, creatureFactory) { }
 
 std::shared_ptr<Warrior> Barracks::createWarrior() const {
@@ -48,4 +48,4 @@ std::shared_ptr<Archer> Barracks::createArcher() const {
 std::shared_ptr<Healer> Barracks::createHealer() const {
     std::shared_ptr<Healer> healer = creatureFactory_->getHealer(x_ + xSize_, y_ + ySize_);
     return healer;
-    }
+}

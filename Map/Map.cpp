@@ -29,7 +29,7 @@ bool Map::isEngaged(size_t x, size_t y) const {
 }
 
 bool Map::set(size_t x, size_t y, const std::shared_ptr<Unit>& unit) {
-    if (unit == nullptr)
+    if (unit == nullptr || this != unit->getMap().get())
         return false;
     for (size_t i = 0; i < unit->getSize().first; ++i)
         for (size_t j = 0; j < unit->getSize().second; ++j)
@@ -62,11 +62,18 @@ void Map::remove(const std::shared_ptr<Unit>& unit) {
 }
 
 bool Map::moveTo(size_t x, size_t y, const std::shared_ptr<Unit>& unit) {
-    if (set(x, y, unit)) {
-        remove(unit);
-        return true;
-    } else
+    if (unit == nullptr || this != unit->getMap().get())
         return false;
+    for (size_t i = 0; i < unit->getSize().first; ++i)
+        for (size_t j = 0; j < unit->getSize().second; ++j)
+            if (isEngaged(x + i, y + j) && getUnit(x + i, y + j) != unit)
+                return false;
+    remove(unit);
+    for (size_t i = 0; i < unit->getSize().first; ++i)
+        for (size_t j = 0; j < unit->getSize().second; ++j) {
+            map_[x + i][y + j] = unit;
+        }
+    return true;
 }
 
 std::shared_ptr<Unit> Map::getUnit(size_t x, size_t y) const {

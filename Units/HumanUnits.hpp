@@ -14,6 +14,7 @@
 
 
 class HumanUnitFactory;
+
 class HumanTownHall : public TownHall {
 public:
     static const size_t id;
@@ -23,7 +24,7 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit HumanTownHall(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                            size_t x = 0, size_t y = 0,
                            int health = defaultStartHealth, int armor = defaultStartArmor);
     
@@ -40,7 +41,7 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit HumanBarracks(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                            size_t x = 0, size_t y = 0,
                            int health = defaultStartHealth, int armor = defaultStartArmor);
     
@@ -60,7 +61,7 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit HumanWorker(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
                          int damage = defaultStartDamage, double range = defaultStartAttackRange,
                          double moveRange = defaultStartMoveRange);

@@ -15,11 +15,11 @@
 class PlayerBuilder {
 protected:
     std::string nickname_;
-    Race race_;
     std::shared_ptr<IMap> map_;
+    Race race_;
     
 public:
-    PlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
+    explicit PlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     virtual ~PlayerBuilder() { }
     
     std::shared_ptr<Player> getPlayer() const;
@@ -30,7 +30,7 @@ public:
 
 class HumanPlayerBuilder : public PlayerBuilder {
 public:
-    HumanPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
+    explicit HumanPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     ~HumanPlayerBuilder() { }
     
     virtual void buildRace();
@@ -39,7 +39,7 @@ public:
 
 class OrcPlayerBuilder : public PlayerBuilder {
 public:
-    OrcPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
+    explicit OrcPlayerBuilder(const std::string &nickname, const std::shared_ptr<IMap>& map = std::make_shared<Map>());
     ~OrcPlayerBuilder() { }
     
     virtual void buildRace();
@@ -52,11 +52,11 @@ private:
     
 public:
     PlayerDirector();
-    PlayerDirector(std::shared_ptr<PlayerBuilder> builder);
+    explicit PlayerDirector(const std::shared_ptr<PlayerBuilder>& builder);
     
     ~PlayerDirector() { }
     
-    void setBuilder(std::shared_ptr<PlayerBuilder> builder);
+    void setBuilder(const std::shared_ptr<PlayerBuilder>& builder);
     std::shared_ptr<Player> buildPlayer();
 };
 

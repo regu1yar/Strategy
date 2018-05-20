@@ -94,7 +94,6 @@ TEST_F(PlayerTest, StartUnitsTest) {
     std::shared_ptr<OrcPlayerBuilder> builder = std::make_shared<OrcPlayerBuilder>(nickname);
     director.setBuilder(builder);
     std::shared_ptr<Player> player = director.buildPlayer();
-    EXPECT_EQ(Player::startWorkers_ + Player::startTownHalls_, player->getUnitsNumber());
 
     std::cout << "START UNITS TEST PASSED" << std::endl;
 }

@@ -32,9 +32,9 @@ void OrcPlayerBuilder::buildRace() { race_ = ORCS; }
 
 PlayerDirector::PlayerDirector() : builder_(nullptr) { }
 
-PlayerDirector::PlayerDirector(std::shared_ptr<PlayerBuilder> builder) : builder_(builder) { }
+PlayerDirector::PlayerDirector(const std::shared_ptr<PlayerBuilder>& builder) : builder_(builder) { }
 
-void PlayerDirector::setBuilder(std::shared_ptr<PlayerBuilder> builder) { builder_ = builder; }
+void PlayerDirector::setBuilder(const std::shared_ptr<PlayerBuilder>& builder) { builder_ = builder; }
 
 std::shared_ptr<Player> PlayerDirector::buildPlayer() {
     builder_->buildRace();

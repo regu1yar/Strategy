@@ -22,7 +22,7 @@ public:
 
     virtual std::shared_ptr<TownHall> getTownHall(size_t x, size_t y) const {
         std::shared_ptr<OrcTownHall> unit =  std::make_shared<OrcTownHall>(
-                std::dynamic_pointer_cast<const OrcUnitFactory>(shared_from_this()),
+                std::dynamic_pointer_cast<OrcUnitFactory>(std::const_pointer_cast<UnitFactory>(shared_from_this())),
                         map_, x, y);
         unit->putOnMap();
         return unit;
@@ -30,7 +30,7 @@ public:
 
     virtual std::shared_ptr<Barracks> getBarracks(size_t x, size_t y) const {
         std::shared_ptr<OrcBarracks> unit =  std::make_shared<OrcBarracks>(
-                std::dynamic_pointer_cast<const OrcUnitFactory>(shared_from_this()),
+                std::dynamic_pointer_cast<OrcUnitFactory>(std::const_pointer_cast<UnitFactory>(shared_from_this())),
                         map_, x, y);
         unit->putOnMap();
         return unit;
@@ -38,7 +38,7 @@ public:
 
     virtual std::shared_ptr<Worker> getWorker(size_t x, size_t y) const {
         std::shared_ptr<OrcWorker> unit =  std::make_shared<OrcWorker>(
-                std::dynamic_pointer_cast<const OrcUnitFactory>(shared_from_this()),
+                std::dynamic_pointer_cast<OrcUnitFactory>(std::const_pointer_cast<UnitFactory>(shared_from_this())),
                         map_, x, y);
         unit->putOnMap();
         return unit;

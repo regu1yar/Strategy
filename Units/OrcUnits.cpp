@@ -16,10 +16,10 @@ const size_t OrcTownHall::ySize = 2;
 const int OrcTownHall::defaultStartHealth = 1200;
 const int OrcTownHall::defaultStartArmor = 8;
 
-OrcTownHall::OrcTownHall(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+OrcTownHall::OrcTownHall(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x, size_t y, int health, int armor) :
         TownHall(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
-                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+                 std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t OrcBarracks::id = ORCS + BUILDING + BARRACKS;
@@ -29,10 +29,10 @@ const size_t OrcBarracks::ySize = 2;
 const int OrcBarracks::defaultStartHealth = 900;
 const int OrcBarracks::defaultStartArmor = 7;
 
-OrcBarracks::OrcBarracks(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+OrcBarracks::OrcBarracks(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x, size_t y, int health, int armor) :
         Barracks(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
-                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+                 std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t OrcWorker::id = ORCS + CREATURE + WORKER;
@@ -45,10 +45,10 @@ const int OrcWorker::defaultStartDamage = 5;
 const double OrcWorker::defaultStartAttackRange = 1.5;
 const double OrcWorker::defaultStartMoveRange = 9;
 
-OrcWorker::OrcWorker(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+OrcWorker::OrcWorker(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                      size_t x, size_t y, int health, int armor, int damage, double attackRange, double moveRange) :
         Worker(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
-               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+               std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t OrcWarrior::id = ORCS + CREATURE + WARRIOR;

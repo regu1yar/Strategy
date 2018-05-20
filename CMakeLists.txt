@@ -23,9 +23,12 @@ file(GLOB UTILS_SOURCE Utils/*.hpp Utils/*.cpp)
 file(GLOB ARMY_SOURCE Army/*.hpp Army/*.cpp)
 file(GLOB MAP_SOURCE Map/*.hpp Map/*.cpp)
 file(GLOB GAME_PROCESS_SOURCE Game_Process/*.hpp Game_Process/*.cpp)
+file(GLOB MODEL_SOURCE Model/*.hpp Model/*.cpp)
+file(GLOB PRESENTER_SOURCE Presenter/*.hpp Presenter/*.cpp)
 
 add_library(MyStrategyLib ${UNITS_SOURCE} ${PLAYER_SOURCE} ${UTILS_SOURCE}
-		${ARMY_SOURCE} ${MAP_SOURCE} ${GAME_PROCESS_SOURCE})
+		${ARMY_SOURCE} ${MAP_SOURCE} ${GAME_PROCESS_SOURCE} ${MODEL_SOURCE}
+		${PRESENTER_SOURCE})
 if(WITH_TEST)
 	file(GLOB TESTS Test/*.hpp)
 	add_executable(MyStrategy main.cpp ${TESTS})

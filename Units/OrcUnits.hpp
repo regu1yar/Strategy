@@ -14,6 +14,7 @@
 
 
 class OrcUnitFactory;
+
 class OrcTownHall : public TownHall {
 public:
     static const size_t id;
@@ -23,7 +24,7 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit OrcTownHall(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit OrcTownHall(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~OrcTownHall() { }
@@ -39,7 +40,7 @@ public:
     static const int defaultStartHealth;
     static const int defaultStartArmor;
 
-    explicit OrcBarracks(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit OrcBarracks(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor);
     
     ~OrcBarracks() { }
@@ -58,7 +59,7 @@ public:
     static const double defaultStartAttackRange;
     static const double defaultStartMoveRange;
 
-    explicit OrcWorker(const std::shared_ptr<const OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+    explicit OrcWorker(const std::shared_ptr<OrcUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                        size_t x = 0, size_t y = 0, int health = defaultStartHealth, int armor = defaultStartArmor,
                        int damage = defaultStartDamage, double range = defaultStartAttackRange,
                        double moveRange = defaultStartMoveRange);

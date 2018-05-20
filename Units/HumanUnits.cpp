@@ -16,10 +16,10 @@ const size_t HumanTownHall::ySize = 2;
 const int HumanTownHall::defaultStartHealth = 1000;
 const int HumanTownHall::defaultStartArmor = 10;
 
-HumanTownHall::HumanTownHall(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+HumanTownHall::HumanTownHall(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                              size_t x, size_t y, int health, int armor) :
         TownHall(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
-                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+                 std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t HumanBarracks::id = HUMANS + BUILDING + BARRACKS;
@@ -29,10 +29,10 @@ const size_t HumanBarracks::ySize = 2;
 const int HumanBarracks::defaultStartHealth = 800;
 const int HumanBarracks::defaultStartArmor = 8;
 
-HumanBarracks::HumanBarracks(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+HumanBarracks::HumanBarracks(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                              size_t x, size_t y, int health, int armor) :
         Barracks(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor,
-                 std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+                 std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t HumanWorker::id = HUMANS + CREATURE + WORKER;
@@ -45,10 +45,10 @@ const int HumanWorker::defaultStartDamage = 4;
 const double HumanWorker::defaultStartAttackRange = 1.5;
 const double HumanWorker::defaultStartMoveRange = 10;
 
-HumanWorker::HumanWorker(const std::shared_ptr<const HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
+HumanWorker::HumanWorker(const std::shared_ptr<HumanUnitFactory> &factory, const std::shared_ptr<IMap>& map,
                          size_t x, size_t y, int health, int armor, int damage, double attackRange, double moveRange) :
         Worker(id, name, xSize, ySize, map, x, y, defaultStartHealth, health, armor, damage, attackRange, moveRange,
-               std::dynamic_pointer_cast<const UnitFactory>(factory)) { }
+               std::dynamic_pointer_cast<UnitFactory>(factory)) { }
 
 
 const size_t HumanWarrior::id = HUMANS + CREATURE + WARRIOR;

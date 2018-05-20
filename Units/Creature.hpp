@@ -68,12 +68,12 @@ class TownHall;
 class Barracks;
 class Worker : public Creature {
 protected:
-    std::shared_ptr<const UnitFactory> buildingFactory_;
+    std::shared_ptr<UnitFactory> buildingFactory_;
     
 public:
     Worker(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
            size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange, double moveRange,
-           const std::shared_ptr<const UnitFactory> &buildingFactory);
+           const std::shared_ptr<UnitFactory> &buildingFactory);
     
     // Currently without any borders
     std::shared_ptr<TownHall> buildTownHall() const;

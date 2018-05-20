@@ -87,7 +87,7 @@ Move Creature::moveBy(int x, int y) {
 Worker::Worker(size_t id, const std::string &name, size_t xSize, size_t ySize, const std::shared_ptr <IMap> &map,
                size_t x, size_t y, int maxHealth, int health, int armor, int damage, double attackRange,
                double moveRange,
-               const std::shared_ptr<const UnitFactory> &buildingFactory) :
+               const std::shared_ptr<UnitFactory> &buildingFactory) :
         Creature(id, name, xSize, ySize, map, x, y, maxHealth, health, armor, damage, attackRange, moveRange),
         buildingFactory_(buildingFactory) { }
 
